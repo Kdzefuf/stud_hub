@@ -25,9 +25,6 @@ const SignUp = () => {
     })
   }
    
-  let imgs = [
-    'https://as2.ftcdn.net/v2/jpg/03/39/70/91/1000_F_339709132_H9HSSTtTmayePcbARkTSB2qoZTubJ6bR.jpg',
-  ];
   return (
         <div className="container" style={{paddingTop: 60}}>
           <div className="container-fluid h-custom">
@@ -84,7 +81,6 @@ const SignUp = () => {
                 </form>
               </div>
               <div className="col-md-9 col-lg-6 col-xl-5">
-                <img src={imgs[0]} className="img-fluid"/>
               </div>
             </div>
           </div>
