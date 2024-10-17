@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import LoginService from "./API/LoginService";
 import Login from "./pages/Login";
+import axios from "axios";
 
 function App() {
   const [usersData, SetUsersData] = useState([])
@@ -11,9 +11,10 @@ function App() {
   }, [])
 
   async function getUsersInfo() {
-    const response = await axios;
-    SetUsersData(response)
+    const response = await axios.get(`http://localhost:3000/users`);
+    SetUsersData(response.data)
     console.log(response)
+    console.log(response.data)
   }
 
   return (
