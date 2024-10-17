@@ -74,7 +74,7 @@ const deleteMatreial = async (materialId) => {
   }
 };
 
-const PORT = 5432 || 3000;
+const PORT = process.env.DB_PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
