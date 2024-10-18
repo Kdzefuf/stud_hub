@@ -2,10 +2,13 @@ const express = require('express');
 const pool = require('./config/db');
 const userRoutes = require('./routes/index');
 const userController = require('./controllers/userController');
+const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 pool.query('SELECT NOW()', (err, res) => {
@@ -13,9 +16,18 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getMaterial(1728828622603));
+    console.log(getUsers());
   }
 });
+
+const getUsers = async () => {
+  try {
+    const user = await userModel.getUsers();
+    console.log(user);
+  } catch (err) {
+    console.error('Error deleting user:', err.message);
+  }
+};
 
 const getMaterial = async (id) => {
   try {
@@ -74,7 +86,9 @@ const deleteMatreial = async (materialId) => {
   }
 };
 
-const PORT = process.env.DB_PORT || 3500;
+app.use('/api', userRoutes);
+
+const PORT = 3500;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -1,62 +1,56 @@
-const pool = require('../config/db');
+const materialsModel = require('../models/materialsModel');
 
-exports.getMaterials = async () => {
+exports.getMaterials = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM materials');
-    return result.rows;
+    const materials = await materialsModel.getMaterials();
+    res.status(200).json(materials);
   } catch (err) {
-    throw new Error('Error fetching materials: ' + err.message);
+    console.error('Ошибка при обработке запроса на получение материалов:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить материалов');
   }
 };
 
-exports.getMaterialById = async (id) => {
-    try {
-      const result = await pool.query('SELECT * FROM materials WHERE id = $1', [id]);
-      return result.rows[0];
-    } catch (err) {
-      throw new Error('Error fetching users: ' + err.message);
+exports.getMaterialById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const material = await materialsModel.getMaterialById(id);
+    
+    if (!material) {
+      return res.status(404).json({ message: 'Material not found' });
     }
-  }
 
-exports.createMaterial = async (materialData) => {
-  const { id, name, author_id, link, description, views_count, rating, reviews, tags } = materialData;
-  try {
-    const result = await pool.query(
-      'INSERT INTO materials (id, name, author_id, link, description, views_count, rating, reviews, tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, reviews, tags]
-    );
-    return result.rows[0];
+    res.status(200).json(material);
   } catch (err) {
-    throw new Error('Error creating material: ' + err.message);
+    res.status(500).json({ error: err.message });
   }
 };
 
-exports.updateMaterial = async (id, materialData) => {
-    const { name, author_id, link, description, views_count, rating, reviews, tags } = materialData;
+exports.createMaterial = async (req, res) => {
   try {
-    const result = await pool.query(
-      'UPDATE materials SET name = $2, author_id = $3, link = $4, description = $5, views_count = $6, rating = $7, reviews = $8, tags = $9 WHERE id = $1 RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, reviews, tags]
-    );
-    return result.rows[0];
+    const material = await materialsModel.createMaterial(req.body);
+    res.status(201).json(material);
   } catch (err) {
-    throw new Error('Error updating material: ' + err.message);
+    res.status(500).json({ error: err.message });
   }
 };
 
-exports.deleteMaterial = async (id) => {
+exports.updateMaterial = async (req, res) => {
+  const { id } = req.params;
   try {
-    await pool.query('DELETE FROM materials WHERE id = $1', [id]);
+    const material = await materialsModel.updateMaterial(id, req.body);
+    res.status(200).json(material);
   } catch (err) {
-    throw new Error('Error deleting user: ' + err.message);
+    res.status(500).json({ error: err.message });
   }
 };
 
-exports.printUsersToConsole = async () => {
-    try {
-      const users = await this.getUsers();
-      console.log('Users from database:', users);
-    } catch (err) {
-      console.error('Error fetching users:', err.message);
-    }
-  };
+exports.deleteMaterial = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await materialsModel.deleteMaterial(id);
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

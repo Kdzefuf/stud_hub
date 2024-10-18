@@ -6,16 +6,23 @@ function App() {
   const [usersData, SetUsersData] = useState([])
 
   useEffect(() => {
-    getUsersInfo()
+    getMaterials()
     console.log("Функция отработала")
   }, [])
 
-  async function getUsersInfo() {
-    const response = await axios.get(`http://localhost:3000/users`);
-    SetUsersData(response.data)
-    console.log(response)
-    console.log(response.data)
-  }
+  const apiClient = axios.create({
+    baseURL: 'http://localhost:3500/api',
+    timeout: 100000,
+  });
+
+  const getMaterials = async () => {
+    try {
+      const response = await apiClient.get('/materials');
+      console.log('Полученные данные:', response.data);
+    } catch (error) {
+      console.error('Ошибка запроса:', error);
+    }
+  };
 
   return (
     <div className="App">
