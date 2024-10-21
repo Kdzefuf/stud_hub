@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Input from '../components/UI/Input/Input';
 import Button from '../components/UI/Button/Button';
 import axios from 'axios';
+import LoginService from '../API/LoginService';
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -13,7 +14,7 @@ function Login() {
 
   const tryLogin = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await axios.post('/users',
         {
