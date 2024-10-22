@@ -9,6 +9,28 @@ exports.getMaterials = async () => {
   }
 };
 
+exports.getPopularMaterials = async () => {
+  try {
+    const result = await pool.query('SELECT * FROM materials');
+    let sortedMaterials = sortMaterials(result.rows, 'views_count');
+    return sortedMaterials.slice(0, 10);
+  } catch (err) {
+    throw new Error('Error fetching materials: ' + err.message);
+  }
+};
+
+function sortMaterials (materials, sortAttribute) {
+  return materials.sort((a, b) => {
+    if (a[sortAttribute] < b[sortAttribute]) {
+      return 1;
+    }
+    if (a[sortAttribute] > b[sortAttribute]) {
+      return -1;
+    }
+    return 0;
+  });
+}
+
 exports.getMaterialById = async (id) => {
     try {
       const result = await pool.query('SELECT * FROM materials WHERE id = $1', [id]);

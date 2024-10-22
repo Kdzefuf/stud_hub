@@ -7,7 +7,7 @@ import axios from "axios";
  */
 const APIClient = axios.create({
   baseURL: 'http://localhost:3500/api',
-  timeout: 100000,
+  timeout: 1000,
 });
 
 export default APIClient;

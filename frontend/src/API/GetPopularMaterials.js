@@ -18,7 +18,7 @@ class GetPopularMaterials {
    */
   static async getPopularMaterials() {
     try {
-      const response = await APIClient.get('/home');
+      const response = await APIClient.get('/popularMaterials');
       return response.data;
     }
     catch(e) {

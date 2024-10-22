@@ -26,6 +26,16 @@ exports.getMaterialById = async (req, res) => {
   }
 };
 
+exports.getPopularMaterials = async (req, res) => {
+  try {
+    const materials = await materialsModel.getPopularMaterials();
+    res.status(200).json(materials);
+  } catch (err) {
+    console.error('Ошибка при обработке запроса на получение материалов:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить материалов');
+  }
+};
+
 exports.createMaterial = async (req, res) => {
   try {
     const material = await materialsModel.createMaterial(req.body);

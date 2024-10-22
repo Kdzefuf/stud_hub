@@ -4,6 +4,7 @@ const userRoutes = require('./routes/index');
 const userController = require('./controllers/userController');
 const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
+const materialsModel = require('./models/materialsModel');
 const cors = require('cors');
 
 const app = express();
@@ -16,7 +17,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getUsers());
+    console.log(getMaterials());
   }
 });
 
@@ -29,9 +30,9 @@ const getUsers = async () => {
   }
 };
 
-const getMaterial = async (id) => {
+const getMaterials = async () => {
   try {
-    const user = await materialsController.getMaterialById(id);
+    const user = await materialsModel.getPopularMaterials();
     console.log(user);
   } catch (err) {
     console.error('Error deleting user:', err.message);
@@ -42,18 +43,17 @@ const addMaterial = async () => {
   try {
     const newMaterial = {
       id: new Date().getTime(),
-      name: 'testMaterial',
+      name: 'Blockchain Basics',
       author_id: 1,
-      link: 'https://googledisk.com/',
-      description: 'rtfghjklhgvgftghjknkjytdsdfghuugfyrtsergfg',
-      views_count: 0,
-      rating: null,
-      reviews: null,
-      tags: "test"
+      link: 'https://example.com/blockchain-basics',
+      description: 'Understanding the fundamentals of blockchain technology.',
+      views_count: 27,
+      rating: 4.6,
+      reviews: 76,
+      tags: "blockchain, finance, technology"
     };
-    const material = await materialsController.createMaterial(newMaterial);
+    const material = await materialsModel.createMaterial(newMaterial);
     console.log('User created:', material);
-    updateMaterialName(material.id);
   } catch (err) {
     console.error('Error adding user:', err.message);
   }

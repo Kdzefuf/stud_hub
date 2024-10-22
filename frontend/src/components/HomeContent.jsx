@@ -11,14 +11,16 @@ function HomeContent() {
   const forSearch = (e) => {
     e.preventDefault();
   }
-
+  /**
+   * @todo вернуть все как было
+   */
   return (
     <div className={classes.HomeContent}>
-      <h1 className={classes.title}>Задать вопрос</h1>
+      <h1 className={classes.title}>Искать материалы</h1>
       <form className={classes.searchBar} onSubmit={forSearch}>
         <Input 
         type="text"
-        placeholder="Введите интересуещий вопрос"
+        placeholder=""
         required={false}
         value={searchValue}
         onChange={searchInput}
@@ -27,7 +29,7 @@ function HomeContent() {
         <Button 
           type="submit"
           currentClass="searchBar"
-          placeholder="На поиски"
+          placeholder="Найти"
         />
       </form>
       <MostPopularQuestions />
