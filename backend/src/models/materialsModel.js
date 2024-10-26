@@ -15,7 +15,7 @@ exports.getPopularMaterials = async () => {
     let sortedMaterials = sortMaterials(result.rows, 'views_count');
     return sortedMaterials.slice(0, 10);
   } catch (err) {
-    throw new Error('Error fetching materials: ' + err.message);
+    throw new Error('Error fetching popular materials: ' + err.message);
   }
 };
 
@@ -36,7 +36,7 @@ exports.getMaterialById = async (id) => {
       const result = await pool.query('SELECT * FROM materials WHERE id = $1', [id]);
       return result.rows[0];
     } catch (err) {
-      throw new Error('Error fetching users: ' + err.message);
+      throw new Error('Error fetching materials by id: ' + err.message);
     }
   }
 
@@ -70,15 +70,6 @@ exports.deleteMaterial = async (id) => {
   try {
     await pool.query('DELETE FROM materials WHERE id = $1', [id]);
   } catch (err) {
-    throw new Error('Error deleting user: ' + err.message);
+    throw new Error('Error deleting material: ' + err.message);
   }
 };
-
-exports.printUsersToConsole = async () => {
-    try {
-      const users = await this.getUsers();
-      console.log('Users from database:', users);
-    } catch (err) {
-      console.error('Error fetching users:', err.message);
-    }
-  };

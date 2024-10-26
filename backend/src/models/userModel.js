@@ -14,7 +14,25 @@ exports.getUserById = async (id) => {
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     return result.rows[0];
   } catch (err) {
-    throw new Error('Error fetching users: ' + err.message);
+    throw new Error('Error fetching user by id: ' + err.message);
+  }
+}
+
+exports.findUserByNickname = async (nickname) => {
+  try {
+    const result = await pool.query('SELECT * FROM users WHERE nickname = $1', [nickname]);
+    return result.rows[0];
+  } catch (err) {
+    throw new Error('Error finding user by nickname: ' + err.message);
+  }
+}
+
+exports.findUserByEmail = async (email) => {
+  try {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    return result.rows[0];
+  } catch (err) {
+    throw new Error('Error finding user by email: ' + err.message);
   }
 }
 
@@ -51,12 +69,3 @@ exports.deleteUser = async (id) => {
     throw new Error('Error deleting user: ' + err.message);
   }
 };
-
-exports.printUsersToConsole = async () => {
-    try {
-      const users = await this.getUsers();
-      console.log('Users from database:', users);
-    } catch (err) {
-      console.error('Error fetching users:', err.message);
-    }
-  };

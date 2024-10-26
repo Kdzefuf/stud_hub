@@ -26,8 +26,48 @@ exports.getUserById = async (req, res) => {
   }
 };
 
+exports.getUserByNickname = async (req, res) => {
+  const { nickname } = req.params;
+
+  try {
+    const user = await userModel.findUserByNickname(nickname);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const user = await userModel.findUserByEmail(email);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 exports.createUser = async (req, res) => {
   try {
+    const existingUser = await userModel.findUserByNickname(req.body.nickname);
+    const existingEmail = await userModel.findUserByEmail(req.body.email);
+    if (existingUser) {
+      return res.status(409).json({ error: 'Nickname already exists' });
+    }
+    if (existingEmail) {
+      return res.status(409).json({ error: 'Email already exists' });
+    }
     const user = await userModel.createUser(req.body);
     res.status(201).json(user);
   } catch (err) {

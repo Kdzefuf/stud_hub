@@ -6,24 +6,29 @@ const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
 const materialsModel = require('./models/materialsModel');
 const cors = require('cors');
+const validateUser = require('./middleware/validateUser');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(validateUser);
+app.use('/api', userRoutes);
+app.use(errorHandler);
 
 pool.query('SELECT NOW()', (err, res) => {
   if(err) {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getMaterials());
+    console.log(getUsers());
   }
 });
 
 const getUsers = async () => {
   try {
-    const user = await userModel.getUsers();
+    const user = await userModel.findUserByNickname('testnick');
     console.log(user);
   } catch (err) {
     console.error('Error deleting user:', err.message);
@@ -85,8 +90,6 @@ const deleteMatreial = async (materialId) => {
     console.error('Error deleting user:', err.message);
   }
 };
-
-app.use('/api', userRoutes);
 
 const PORT = 3500;
 app.listen(PORT, () => {
