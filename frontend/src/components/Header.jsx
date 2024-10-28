@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import Accordion from "./UI/Accordion/Accordion";
 import Logo from "./UI/Logo/Logo";
 import ProfileLink from "./UI/ProfileLink/ProfileLink";
-import Navigation from "./UI/Navigation/Navigation";
 import styles from '../styles/header.module.css'
 
 function Header(props) {
-  const [isHome, setIsHome] = useState(true)
-
-  useEffect(() => {
-    setIsHome(props.isHome)
-  }, [])
+  const shouldRender = {
+    Accordion: props.isAccordion,
+    Logo: props.isLogo,
+    ProfileLink: props.isProfileLink
+  };
 
   return (
-    <header className={styles.header}>
-      <Accordion />
-      <Logo />
-      {isHome && <Navigation />}
-      <ProfileLink />
+    <header className={styles[props.Header]}>
+      {shouldRender.Accordion && <Accordion />}
+      {shouldRender.Logo && <Logo />}
+      {shouldRender.ProfileLink && <ProfileLink />}
+      
     </header>
   )
 }

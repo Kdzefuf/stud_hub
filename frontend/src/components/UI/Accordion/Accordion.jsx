@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import styles from "./Accordion.module.css"
 
 function Accordion() {
   const [accordionIsOpen, setAccordionIsOpen] = useState(false);
-  const ref = useRef()
 
   function accordionAction() {
     setAccordionIsOpen(prevState => !prevState);
@@ -17,11 +16,13 @@ function Accordion() {
         <span className={styles.bar}></span>
       </button>
       {accordionIsOpen && (
-        <ul className={styles.accordionItems}>
-          <li>Меню</li>
-          <li>Элемент 1</li>
-          <li>Элемент 2</li>
-        </ul>
+        <div className={styles.accordionItems}>
+          <a href="/questions">Задать вопрос</a>
+          <a href="/forum">Форум</a>
+          <a href="/teachers">Преподователи</a>
+          <a href="/materials">Материалы предметов</a>
+          <a href="/examMaterials">Материалы к экзаменам</a>
+        </div>
       )}
     </div>
   )

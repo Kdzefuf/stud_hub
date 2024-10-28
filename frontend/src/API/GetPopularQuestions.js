@@ -1,12 +1,13 @@
 import APIClient from "./APIClient";
+import PopularQuestionsStubs from "./stubs/PopularQuestionsStubs";
 
 /**
  * Класс содержащий API для получение данных о пользователе
  * @class
  */
-class LoginService {
+class GetPopularQuestions {
   /**
-   * Функция возвращающая статус пользователя
+   * Функция возвращающая список самых популярных вопросов
    * @function
    * @async
    * @static
@@ -16,15 +17,16 @@ class LoginService {
    * @example getUserLoginStatus() - получение данных о пользователе
    * @returns {object} возвращает статус пользователя
    */
-  static async getUserLoginStatus() {
+  static async getPopularQuestions() {
     try {
-      const response = await APIClient.get('/materials');
+      const response = await APIClient.get('/popularQuestions');
       return response.data;
     }
     catch(e) {
-      console.log(e)
+      console.log(e);
+      // return PopularQuestionsStubs;
     }
   }
 }
 
-export default LoginService;
+export default GetPopularQuestions;

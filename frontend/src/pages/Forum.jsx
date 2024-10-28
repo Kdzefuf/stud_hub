@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
-function Teachers() {
+
+function Forum() {
   return (
     <div className="page">
       <Header Header="header" isLogo={true} isProfileLink={true} isAccordion={true} />
@@ -8,4 +9,4 @@ function Teachers() {
   )
 }
 
-export default Teachers;
+export default Forum;

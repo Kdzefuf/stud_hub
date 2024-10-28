@@ -1,9 +1,9 @@
 import React from "react";
 import classes from './Logo.module.css'
 
-function Logo(props) {
+function Logo() {
   return (
-    <a href={props.link} className={classes.logo}>
+    <a href='/' className={classes.logo}>
       StudHub
     </a>
   )

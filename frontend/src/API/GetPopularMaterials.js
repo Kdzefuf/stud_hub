@@ -1,7 +1,8 @@
 import APIClient from "./APIClient";
+import PopularMaterialsStubs from "./stubs/PopularMaterialsStubs";
 
 /**
- * Класс содержащий API для получение данных о пользователе
+ * Класс содержащий API для получение данных о списке самых популярных вопросов
  * @class
  */
 class GetPopularMaterials {
@@ -13,8 +14,8 @@ class GetPopularMaterials {
    * @author RedStrike_rf(https://github.com/RedStrikeRF)
    * @author Kdzefuf(https://github.com/Kdzefuf)
    * @borrows axios for HTTPrequests
-   * @example getUserLoginStatus() - получение данных о пользователе
-   * @returns {object} возвращает статус пользователя
+   * @example getPopularMaterials() - получение данных о списке самых популярных вопросов
+   * @returns {object} возвращает список самых популярных вопросов
    */
   static async getPopularMaterials() {
     try {
@@ -22,7 +23,8 @@ class GetPopularMaterials {
       return response.data;
     }
     catch(e) {
-      console.log(e)
+      console.log(e);
+      // return PopularMaterialsStubs;
     }
   }
 }
