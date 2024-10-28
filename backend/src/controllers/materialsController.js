@@ -39,7 +39,7 @@ exports.getPopularMaterials = async (req, res) => {
 exports.createMaterial = async (req, res) => {
   try {
     const material = await materialsModel.createMaterial(req.body);
-    res.status(201).json(material);
+    res.status(200).json(material);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -59,7 +59,7 @@ exports.deleteMaterial = async (req, res) => {
   const { id } = req.params;
   try {
     await materialsModel.deleteMaterial(id);
-    res.status(204).send();
+    res.status(200).send();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

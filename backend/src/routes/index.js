@@ -4,10 +4,11 @@ const userController = require('../controllers/userController');
 const materialsController = require('../controllers/materialsController');
 
 router.get('/users', userController.getUsers);
-router.post('/users', userController.createUser);
+router.post('/signup', userController.createUser);
 router.get('/users/:id', userController.getUserById);
 router.put('/users/:id', userController.updateUser);
 router.delete('/users/:id', userController.deleteUser);
+router.post('/login', userController.getUserByEmail);
 
 router.get('/materials', materialsController.getMaterials);
 router.post('/materials', materialsController.createMaterial);

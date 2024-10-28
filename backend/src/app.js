@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(validateUser);
+// app.use(validateUser);
 app.use('/api', userRoutes);
 app.use(errorHandler);
 

@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="page">
       <Header Header='header' isAccordion={true} isProfileLink={true} isLogo={true}/>
-      <QuestionsContent />
+      {/* <QuestionsContent /> */}
     </div>
   )
 }

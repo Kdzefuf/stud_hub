@@ -19,15 +19,18 @@ class UserSignUp {
    *    .then(data => console.log(data))
    *    .catch(err => console.error(err));
    */
-  static async register(email, password) {
+  static async register(email, password, name, surname, nickname) {
     try {
       const response = await APIClient.post('/signup', {
         email,
         password,
+        name,
+        surname,
+        nickname
       });
 
       if (response.status === 200) {
-        localStorage.setItem('userData', JSON.stringify({ email }));
+        localStorage.setItem('userData', JSON.stringify({ email, password }));
         return response.data;
       } else {
         console.error('Не удалось выполнить регистрацию. Статус:', response.status);

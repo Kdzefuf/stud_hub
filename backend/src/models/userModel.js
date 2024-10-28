@@ -37,11 +37,11 @@ exports.findUserByEmail = async (email) => {
 }
 
 exports.createUser = async (userData) => {
-  const { nickname, name, email, password, shedule } = userData;
+  const { nickname, name, surname, email, password } = userData;
   try {
     const result = await pool.query(
-      'INSERT INTO users (nickname, name, email, password, shedule) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [nickname, name, email, password, shedule]
+      'INSERT INTO users (nickname, name, email, password, surname) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [nickname, name, email, password, surname]
     );
     return result.rows[0];
   } catch (err) {

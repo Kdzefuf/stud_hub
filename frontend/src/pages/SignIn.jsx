@@ -23,10 +23,10 @@ function SignIn() {
   const tryLogin = async (e) => {
     e.preventDefault();
 
-    if (emailRegex.test(email) && passwordRegex.test(password)) {
+    // if (emailRegex.test(email) && passwordRegex.test(password)) {
       try {
         const response = await UserSignIn.login(email, password); // Используем метод UserSignIn.login
-
+        
         if (response) {
           alert('Вход успешно выполнен!');
           setEmail('');
@@ -38,9 +38,9 @@ function SignIn() {
         console.error('Ошибка при запросе:', error);
         alert('Ошибка при входе');
       }
-    } else {
-      alert('Пожалуйста, проверьте правильность введенных данных.');
-    }
+    // } else {
+    //   alert('Пожалуйста, проверьте правильность введенных данных.');
+    // }
   };
 
   return (
