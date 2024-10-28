@@ -1,16 +1,13 @@
 import React from "react";
-import Header from "../components/Header";
-import HomeContent from "../components/HomeContent";
+import Header from "../components/Header.jsx";
+import QuestionsContent from "../components/QuestionsContent";
 import '../styles/App.css'
 
-/**
-   * @todo вернуть все как было
-   */
 function Home() {
   return (
     <div className="page">
-      <Header isHome={true} />
-      <HomeContent />
+      <Header Header='header' isAccordion={true} isProfileLink={true} isLogo={true}/>
+      <QuestionsContent />
     </div>
   )
 }

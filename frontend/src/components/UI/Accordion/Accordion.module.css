@@ -65,28 +65,66 @@
 }
 
 .accordionItems {
-  min-width: 16.302vw;
+  max-width: calc((100vw - 54.896vw) / 2 - 15px);
   min-height: 60vh;
   list-style: none;
-  padding: 10px 30px 40px;
+  padding: 10px 20px;
   position: absolute;
   top: 20vh;
   left: 0px;
   background-color: rgba(46, 46, 79, 1);
   border-top-right-radius: 2.083vw;
   border-bottom-right-radius: 2.083vw;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3.704vh;
+  flex-direction: column;
+
 }
 
-.accordionItems li {
+.accordionItems a {
   padding: 10px 10px;
+  padding-left: 42px;
   position: relative;
 
-  &::after {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29.05px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+
+  &::before {
     content: "";
-    width: 100%;
+    vertical-align: middle;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
     position: absolute;
-    top: 100%;
     left: 0;
-    border-bottom: 1px solid #ccc;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  &:nth-child(1)::before {
+    background-image: url('../../../images/plus.svg');
+  }
+
+  &:nth-child(2)::before {
+    background-image: url('../../../images/forum.svg');
+  }
+
+  &:nth-child(3)::before {
+    background-image: url('../../../images/hat.svg');
+  }
+
+  &:nth-child(4)::before {
+    background-image: url('../../../images/card.svg');
+  }
+
+  &:nth-child(5)::before {
+    background-image: url('../../../images/book.svg');
   }
 }
