@@ -1,0 +1,32 @@
+.header {
+  position: relative;
+  overflow: visible;
+  padding: 0 3.385vw;
+  background-color: rgba(46, 46, 79, 1);
+  width: 100vw;
+  height: 15.185vh;
+  min-height: 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  margin-bottom: 36px;
+}
+
+.sighFormHeader {
+  position: relative;
+  overflow: visible;
+  padding: 0 3.385vw;
+  background-color: rgba(46, 46, 79, 1);
+  width: 100vw;
+  height: 15.185vh;
+  min-height: 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 9.479vw;
+  z-index: 1000;
+  margin-bottom: 40px;
+}

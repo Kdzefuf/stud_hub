@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --font-size24px: 1.250vw;
+  --font-size40px: 2.082vw;
+  --font-size20px: 1.042vw;
+  --font-size60px: 3.125vw;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}

@@ -1,0 +1,12 @@
+.profile {
+  background-image: url('../../../images/profile.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  min-height: 50px;
+  min-width: 50px;
+  width: max(5.208vw, 9.259vh);
+  height: max(5.208vw, 9.259vh);
+  margin-right: 50px;
+}
+
