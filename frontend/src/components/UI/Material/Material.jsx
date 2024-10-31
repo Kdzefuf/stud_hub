@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import classes from './Material.module.css'
+import images from '../Images/images.js';
 
 function Material(props) {
-  useEffect(() => {
-    setFileType(props.fileType);
-  }, [])
-  
-  const [fileType, setFileType] = useState('')
+  console.log(props.fileType.toUpperCase())
+  const icon = images[props.fileType.toUpperCase()];
+
   return (
-    <li className={classes.listItem} key={props.key}>
+    <li className={classes.listItem}>
       <h3 className={classes.title}>{props.name}</h3>
-      <img src={`../../../images/filesTypes/${fileType.toUpperCase}.svg`} />
+      <img src={icon} alt={`${props.fileType} icon`} className={classes.img}/>
       <p className={classes.descr}>{props.description}</p>
-      <p className={classes.author}>Автор материала: {props.author_id}</p>
+      <p className={classes.author}>Автор материала: {props.author}</p>
       <div>
         <p className={classes.rating}>Рейтинг: {props.rating}</p>
         <p className={classes.id}>id материала: {props.id}</p>

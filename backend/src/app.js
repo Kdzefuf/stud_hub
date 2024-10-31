@@ -22,7 +22,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getUsers());
+    console.log(getMaterials());
   }
 });
 
