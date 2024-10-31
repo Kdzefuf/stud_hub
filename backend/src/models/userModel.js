@@ -50,11 +50,11 @@ exports.createUser = async (userData) => {
 };
 
 exports.updateUser = async (id, userData) => {
-  const { nickname, name, email, password, shedule } = userData;
+  const { nickname, name, email, password, shedule, photo, surname } = userData;
   try {
     const result = await pool.query(
-      'UPDATE users SET nickname = $1, name = $2, email = $3, password = $4, shedule = $5 WHERE id = $6 RETURNING *',
-      [nickname, name, email, password, shedule, id]
+      'UPDATE users SET nickname = $1, name = $2, email = $3, password = $4, shedule = $5, photo = $6, surname = $7 WHERE id = $8 RETURNING *',
+      [nickname, name, email, password, shedule, photo, surname, id]
     );
     return result.rows[0];
   } catch (err) {

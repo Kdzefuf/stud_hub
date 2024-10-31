@@ -41,11 +41,11 @@ exports.getMaterialById = async (id) => {
   }
 
 exports.createMaterial = async (materialData) => {
-  const { id, name, author_id, link, description, views_count, rating, reviews, tags } = materialData;
+  const { id, name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
   try {
     const result = await pool.query(
-      'INSERT INTO materials (id, name, author_id, link, description, views_count, rating, reviews, tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, reviews, tags]
+      'INSERT INTO materials (id, name, author_id, link, description, views_count, rating, tags, file_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+      [id, name, author_id, link, description, views_count, rating, tags, file_type]
     );
     return result.rows[0];
   } catch (err) {
@@ -54,11 +54,11 @@ exports.createMaterial = async (materialData) => {
 };
 
 exports.updateMaterial = async (id, materialData) => {
-    const { name, author_id, link, description, views_count, rating, reviews, tags } = materialData;
+    const { name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
   try {
     const result = await pool.query(
-      'UPDATE materials SET name = $2, author_id = $3, link = $4, description = $5, views_count = $6, rating = $7, reviews = $8, tags = $9 WHERE id = $1 RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, reviews, tags]
+      'UPDATE materials SET name = $2, author_id = $3, link = $4, description = $5, views_count = $6, rating = $7, tags = $8, file_type = $9 WHERE id = $1 RETURNING *',
+      [id, name, author_id, link, description, views_count, rating, tags, file_type]
     );
     return result.rows[0];
   } catch (err) {
