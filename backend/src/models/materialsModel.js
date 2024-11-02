@@ -1,13 +1,16 @@
 const pool = require('../config/db');
 
-exports.getMaterials = async () => {
-  try {
-    const result = await pool.query('SELECT * FROM materials');
-    return result.rows;
-  } catch (err) {
-    throw new Error('Error fetching materials: ' + err.message);
-  }
-};
+exports.getMaterials = async (limit, offset) => { 
+  try { 
+   const result = await pool.query(
+    'SELECT * FROM materials ORDER BY id LIMIT $1 OFFSET $2', 
+    [limit, offset]
+   ); 
+   return result.rows; 
+  } catch (err) { 
+   throw new Error('Error fetching materials: ' + err.message); 
+  } 
+}; 
 
 exports.getPopularMaterials = async () => {
   try {
@@ -32,13 +35,13 @@ function sortMaterials (materials, sortAttribute) {
 }
 
 exports.getMaterialById = async (id) => {
-    try {
-      const result = await pool.query('SELECT * FROM materials WHERE id = $1', [id]);
-      return result.rows[0];
-    } catch (err) {
-      throw new Error('Error fetching materials by id: ' + err.message);
-    }
+  try {
+    const result = await pool.query('SELECT * FROM materials WHERE id = $1', [id]);
+    return result.rows[0];
+  } catch (err) {
+    throw new Error('Error fetching materials by id: ' + err.message);
   }
+}
 
 exports.createMaterial = async (materialData) => {
   const { id, name, author_id, link, description, views_count, rating, tags, file_type } = materialData;

@@ -2,7 +2,10 @@ const materialsModel = require('../models/materialsModel');
 
 exports.getMaterials = async (req, res) => {
   try {
-    const materials = await materialsModel.getMaterials();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = (page - 1) * limit;
+    const materials = await materialsModel.getMaterials(limit, offset);
     res.status(200).json(materials);
   } catch (err) {
     console.error('Ошибка при обработке запроса на получение материалов:', err);

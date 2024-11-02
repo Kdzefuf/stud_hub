@@ -22,7 +22,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getMaterials());
+    console.log(getUsers());
   }
 });
 
@@ -48,14 +48,15 @@ const addMaterial = async () => {
   try {
     const newMaterial = {
       id: new Date().getTime(),
-      name: 'Blockchain Basics',
-      author_id: 1,
-      link: 'https://example.com/blockchain-basics',
-      description: 'Understanding the fundamentals of blockchain technology.',
-      views_count: 27,
+      name: 'Big Data Analytics',
+      author_id: 9,
+      link: 'https://example.com/big-data-analytics',
+      description: 'The power of big data in decision making and business.',
+      views_count: 325,
       rating: 4.6,
-      reviews: 76,
-      tags: "blockchain, finance, technology"
+      reviews: 66,
+      tags: 'technology, data, analytics',
+      file_type: 'doc'
     };
     const material = await materialsModel.createMaterial(newMaterial);
     console.log('User created:', material);
