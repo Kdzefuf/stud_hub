@@ -22,7 +22,7 @@ function ProfileLink() {
     if (userData) {
       const parsedData = JSON.parse(userData);
       // Проверяем наличие email, чтобы определить, авторизован ли пользователь
-      setIsAuthenticated(!!parsedData.email);
+      setIsAuthenticated(!!parsedData);
     }
   }, []);
   return (

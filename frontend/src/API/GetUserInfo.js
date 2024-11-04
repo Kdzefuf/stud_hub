@@ -1,6 +1,4 @@
 import APIClient from "./APIClient";
-import PopularMaterialsStubs from "./stubs/PopularMaterialsStubs";
-import userData from "./stubs/UsersDataStubs";
 
 /**
  * Класс, предоставляющий API для получения информации о пользователе.
@@ -20,14 +18,10 @@ class GetUserInfo {
    */
   static async getUserInfo(id) {
     try {
-      const response = await APIClient.post('/getUserInfo', {
-        id // Используем ID
-      });
+      const response = await APIClient.get(`/users/${id}`);
       return response.data;
     } catch (e) {
       console.error(e);
-      console.log(userData) // Возвращаем заглушки в случае ошибки
-      return userData;
     }
   }
 }

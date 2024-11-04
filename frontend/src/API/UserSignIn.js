@@ -24,7 +24,7 @@ class UserSignIn {
       const response = await APIClient.post('/login', { email, password });
 
       if (response.status === 200) {
-        localStorage.setItem('userData', JSON.stringify({ email }));
+        localStorage.setItem('userData', JSON.stringify(response.data.id));
         return response.data;
       } else {
         console.error('Не удалось выполнить вход. Статус:', response.status);

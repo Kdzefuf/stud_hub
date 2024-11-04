@@ -20,7 +20,7 @@ exports.getUserById = async (id) => {
 
 exports.findUserByNickname = async (nickname) => {
   try {
-    const result = await pool.query('SELECT * FROM users WHERE nickname = $1', [nickname]);
+    const result = await pool.query('SELECT id FROM users WHERE nickname = $1', [nickname]);
     return result.rows[0];
   } catch (err) {
     throw new Error('Error finding user by nickname: ' + err.message);
@@ -29,7 +29,7 @@ exports.findUserByNickname = async (nickname) => {
 
 exports.findUserByEmail = async (email) => {
   try {
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
     return result.rows[0];
   } catch (err) {
     throw new Error('Error finding user by email: ' + err.message);
@@ -40,7 +40,7 @@ exports.createUser = async (userData) => {
   const { nickname, name, surname, email, password } = userData;
   try {
     const result = await pool.query(
-      'INSERT INTO users (nickname, name, email, password, surname) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO users (nickname, name, email, password, surname) VALUES ($1, $2, $3, $4, $5) RETURNING id',
       [nickname, name, email, password, surname]
     );
     return result.rows[0];
@@ -50,7 +50,8 @@ exports.createUser = async (userData) => {
 };
 
 exports.updateUser = async (id, userData) => {
-  const { nickname, name, email, password, shedule, photo, surname } = userData;
+  const [ nickname, name, email, password, shedule, photo, surname ] = userData;
+
   try {
     const result = await pool.query(
       'UPDATE users SET nickname = $1, name = $2, email = $3, password = $4, shedule = $5, photo = $6, surname = $7 WHERE id = $8 RETURNING *',

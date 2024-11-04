@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/profile',
     component: PersonalAccount,
-    isProtected: false
+    isProtected: true
   }
 ];
 
