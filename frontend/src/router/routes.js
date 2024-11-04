@@ -6,6 +6,7 @@ import Teachers from "../pages/Teachers";
 import ExamMaterials from "../pages/ExamMaterials";
 import Materials from "../pages/Materials";
 import Forum from "../pages/Forum";
+import PersonalAccount from "../pages/PersonalAccount";
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     path: '/teachers',
     component: Teachers,
     isProtected: true
+  },
+  {
+    path: '/profile',
+    component: PersonalAccount,
+    isProtected: false
   }
 ];
 

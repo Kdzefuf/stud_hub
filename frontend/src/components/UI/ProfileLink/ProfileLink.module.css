@@ -10,3 +10,33 @@
   margin-right: 50px;
 }
 
+.authLinks {
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  min-height: 60px;
+}
+
+.authLinks a {
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size24px);
+  font-weight: var(--font-weight700);
+  line-height: var(--line-heigth29px);
+  text-align: center;
+
+  padding: 8px 1.563vw;
+  border: none;
+  border-radius: var(--border-radius15px);
+
+  &.linkSignIn {
+    color: var(--color-White);
+    background-color: var(--color-transparent);
+  }
+
+  &.linkSignUp {
+    color: var(--color-CharcoalBlue);
+    background-color: var(--color-White);
+  }
+}

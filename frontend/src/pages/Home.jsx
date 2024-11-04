@@ -6,7 +6,7 @@ import '../styles/App.css'
 function Home() {
   return (
     <div className="page">
-      <Header Header='header' isAccordion={true} isProfileLink={true} isLogo={true}/>
+      <Header Header='header' isProfileLink={true}/>
       {/* <QuestionsContent /> */}
     </div>
   )

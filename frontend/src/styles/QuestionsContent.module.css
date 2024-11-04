@@ -3,7 +3,7 @@
   height: min(12.552vw, 22.315vh);
   min-height: 200px;
 
-  background-color: rgba(46, 46, 79, 1);
+  background-color: var(--color-CharcoalBlue);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -11,7 +11,7 @@
   flex-wrap: nowrap;
 
   padding: 2.604vw;
-  border-radius: 40px;
+  border-radius: var(--border-radius40px);
 }
 
 .searchBar {
@@ -27,13 +27,14 @@
   min-height: 40px;
   align-self: flex-start;
   margin-left: 15px;
-  font-family: Inter;
-  font-size: 1.875vw;
-  font-weight: 400;
-  line-height: 4.444vh;
-  text-align: left;
-  color: white;
   margin-bottom: 3.426vh;
+
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size36px);
+  font-weight: var(--font-weigth400);
+  line-height: var(--line-heigth43px);
+  text-align: left;
+  color: var(--color-White);
 }
 
 .container {
