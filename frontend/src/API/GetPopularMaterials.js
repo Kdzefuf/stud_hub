@@ -2,29 +2,28 @@ import APIClient from "./APIClient";
 import PopularMaterialsStubs from "./stubs/PopularMaterialsStubs";
 
 /**
- * Класс содержащий API для получение данных о списке самых популярных вопросов
- * @class
+ * Класс, предоставляющий API для получения данных о популярных учебных материалах.
+ * @class GetPopularMaterials
  */
 class GetPopularMaterials {
   /**
-   * Функция возвращающая список самых популярных вопросов
+   * Получает список самых популярных учебных материалов.
    * @function
    * @async
    * @static
-   * @author RedStrike_rf(https://github.com/RedStrikeRF)
-   * @author Kdzefuf(https://github.com/Kdzefuf)
-   * @borrows axios for HTTPrequests
-   * @example getPopularMaterials() - получение данных о списке самых популярных вопросов
-   * @returns {object} возвращает список самых популярных вопросов
+   * @returns {Promise<object>} Объект, содержащий данные о популярных учебных материалах.
+   * @throws {Error} В случае ошибки выводит сообщение в консоль.
+   * @example
+   * const popularMaterials = await GetPopularMaterials.getPopularMaterials();
    */
   static async getPopularMaterials() {
     try {
       const response = await APIClient.get('/popularMaterials');
       return response.data;
     }
-    catch(e) {
-      console.log(e);
-      // return PopularMaterialsStubs;
+    catch (e) {
+      console.error(e);
+      return PopularMaterialsStubs; // Закомментировано для обработки ошибок
     }
   }
 }

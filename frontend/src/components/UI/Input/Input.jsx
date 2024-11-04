@@ -1,40 +1,46 @@
 import React from "react";
-import classes from "./Inputs.module.css"
+import classes from "./Inputs.module.css";
 
 /**
- * Кастомное поле ввода с параметрами:
- * 1) props.type - тип поля: 
- *  - checkbox - Чекбокс
- *  - datetime-local - выбор времени(локально для каждого пользователя)
- *  - email - ввод email данных пользователя
- *  - file - ввод file пользователя
- *  - password - ввод пароля пользователя
- *  - radio - радиоКнопка(1 из ... таких же кнопок, но выбранная только одна)
- *  - search - поисковое поле ввода пользователя
- *  - text - текстовое поле(default) пользователя
- * 2) props.placeholder - текст внутри поля ввода
- * 3) props.currentClass - название классов(через пробел, если их много) поля ввода
- * 4) props.value - значение, которое будет внутри поля, которое вводит пользователь
- * 5) props.onChange - callback-функция, которая вызывается на любое изменение в поле ввода
- * 6) props.id - уникальный ключ елемента (нужен для более быстрого обновления компонента в react)
- * 7) props.required - св-во отвечающее за обязательность ввода данного поля
- * @author RedStrikeRF(https://github.com/RedStrikeRF)
- * @param {Array} props - всевозможные свойства поля
- * @returns Возвращает JSX разметку поля ввода с введенными props'ами
+ * Кастомный компонент поля ввода.
+ * Поддерживает различные типы полей, текст-заполнитель, стилизацию и обработку изменений.
+ * 
+ * @component
+ * @example
+ * // Пример использования компонента Input
+ * <Input 
+ *   type="email" 
+ *   placeholder="Введите ваш email" 
+ *   currentClass="primaryInput" 
+ *   value={email} 
+ *   onChange={handleChange} 
+ *   id="emailInput" 
+ *   required 
+ * />
+ * @param {Object} props - Свойства, передаваемые в компонент.
+ * @param {('checkbox'|'datetime-local'|'email'|'file'|'password'|'radio'|'search'|'text')} [props.type='text'] - Тип поля ввода.
+ * @param {string} props.placeholder - Текст-заполнитель внутри поля ввода.
+ * @param {string} props.currentClass - Название CSS-классов для стилизации поля (может включать несколько классов через пробел).
+ * @param {string} props.value - Значение, отображаемое в поле ввода.
+ * @param {Function} props.onChange - Обработчик изменений, вызываемый при изменении значения поля.
+ * @param {string} props.id - Уникальный идентификатор элемента для оптимизации обновлений в React.
+ * @param {boolean} [props.required=false] - Указывает, является ли поле обязательным для заполнения.
+ * @returns {JSX.Element} Возвращает JSX-разметку поля ввода с заданными свойствами.
+ * @see {@link https://github.com/RedStrikeRF} Автор компонента
  */
 function Input(props) {
   return (
     <input
-    value={props.value}
-    onChange={props.onChange}
-    className={classes[props.currentClass]}
-    maxLength="64"
-    placeholder={props.placeholder}
-    type={props.type}
-    id={props.id}
-    required={props.required}>
-    </input>
-  )
+      value={props.value}
+      onChange={props.onChange}
+      className={classes[props.currentClass]}
+      maxLength="64"
+      placeholder={props.placeholder}
+      type={props.type || 'text'}
+      id={props.id}
+      required={props.required}
+    />
+  );
 }
 
 export default Input;

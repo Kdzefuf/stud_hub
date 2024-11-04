@@ -1,8 +1,8 @@
 .logo {
-  font-family: Inter;
+  font-family: var(--font-familyInter);
   font-size: var(--font-size60px);
-  font-weight: 500;
-  line-height: 3.75vw;
+  font-weight: var(--font-weight500);
+  line-height: var(--line-heigth43px);
   text-align: center;
-  color: white;
+  color: var(--color-White);
 }
