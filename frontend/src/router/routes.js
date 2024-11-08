@@ -2,10 +2,8 @@ import Home from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Questions from "../pages/Questions";
-import Teachers from "../pages/Teachers";
 import ExamMaterials from "../pages/ExamMaterials";
 import Materials from "../pages/Materials";
-import Forum from "../pages/Forum";
 import PersonalAccount from "../pages/PersonalAccount";
 
 const routes = [
@@ -27,33 +25,23 @@ const routes = [
   {
     path: '/questions',
     component: Questions,
-    isProtected: false
-  },
-  {
-    path: '/forum',
-    component: Forum,
-    isProtected: false
+    isProtected: false,
   },
   {
     path: '/materials',
     component: Materials,
-    isProtected: true
+    isProtected: false,
   },
   {
     path: '/examMaterials',
     component: ExamMaterials,
-    isProtected: true
-  },
-  {
-    path: '/teachers',
-    component: Teachers,
-    isProtected: true
+    isProtected: true,
   },
   {
     path: '/profile',
     component: PersonalAccount,
-    isProtected: true
-  }
+    isProtected: true,
+  },
 ];
 
 export default routes;

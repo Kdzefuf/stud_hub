@@ -46,3 +46,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.dropwodn {
+  max-width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+}

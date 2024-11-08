@@ -6,9 +6,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/quantum-computing',
     description: 'An introduction to quantum computing and its potential applications.',
     views_count: 520,
-    rating: 4.5,
+    rating: 3,
     reviews: 124,
-    tags: 'technology, quantum, computing'
+    tags: 'technology, quantum, computing',
+    file_type: 'TXT'
   },
   {
     id: '002',
@@ -17,9 +18,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/ai-healthcare',
     description: 'Exploring the impact of artificial intelligence in the healthcare industry.',
     views_count: 384,
-    rating: 4.8,
+    rating: 5,
     reviews: 89,
-    tags: 'technology, AI, healthcare'
+    tags: 'technology, AI, healthcare',
+    file_type: 'ODP'
   },
   {
     id: '003',
@@ -28,9 +30,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/blockchain-basics',
     description: 'Understanding the fundamentals of blockchain technology.',
     views_count: 412,
-    rating: 4.6,
+    rating: 3,
     reviews: 76,
-    tags: 'technology, blockchain, finance'
+    tags: 'technology, blockchain, finance',
+    file_type: 'MKV'
   },
   {
     id: '004',
@@ -41,7 +44,8 @@ const PopularMaterialsStubs = [
     views_count: 342,
     rating: 4.4,
     reviews: 65,
-    tags: 'technology, IoT, innovation'
+    tags: 'technology, IoT, innovation',
+    file_type: 'JSON'
   },
   {
     id: '005',
@@ -50,9 +54,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/cybersecurity-trends',
     description: 'Latest trends and practices in cybersecurity.',
     views_count: 536,
-    rating: 4.7,
+    rating: 2.3,
     reviews: 98,
-    tags: 'technology, cybersecurity, security'
+    tags: 'technology, cybersecurity, security',
+    file_type: 'MP3'
   },
   {
     id: '006',
@@ -61,9 +66,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/5g-networks',
     description: 'The impact of 5G technology on communication.',
     views_count: 470,
-    rating: 4.3,
+    rating: 0.3,
     reviews: 82,
-    tags: 'technology, 5G, communication'
+    tags: 'technology, 5G, communication',
+    file_type: 'MP4'
   },
   {
     id: '007',
@@ -72,9 +78,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/augmented-reality',
     description: 'Applications and future of augmented reality.',
     views_count: 298,
-    rating: 4.2,
+    rating: 5,
     reviews: 54,
-    tags: 'technology, AR, innovation'
+    tags: 'technology, AR, innovation',
+    file_type: 'CSV'
   },
   {
     id: '008',
@@ -83,9 +90,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/self-driving-cars',
     description: 'The progress and potential of autonomous vehicles.',
     views_count: 612,
-    rating: 4.9,
+    rating: 5,
     reviews: 134,
-    tags: 'technology, automotive, AI'
+    tags: 'technology, automotive, AI',
+    file_type: 'aac'
   },
   {
     id: '009',
@@ -94,9 +102,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/cloud-computing',
     description: 'Advantages and challenges of cloud computing.',
     views_count: 481,
-    rating: 4.5,
+    rating: 4.2,
     reviews: 78,
-    tags: 'technology, cloud, computing'
+    tags: 'technology, cloud, computing',
+    file_type: 'txt'
   },
   {
     id: '010',
@@ -105,9 +114,10 @@ const PopularMaterialsStubs = [
     link: 'https://example.com/big-data-analytics',
     description: 'The power of big data in decision making and business.',
     views_count: 325,
-    rating: 4.6,
+    rating: 2.5,
     reviews: 66,
-    tags: 'technology, data, analytics'
+    tags: 'technology, data, analytics',
+    file_type: 'jpeg'
   }
 ];
 

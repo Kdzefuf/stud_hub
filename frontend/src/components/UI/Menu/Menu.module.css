@@ -6,12 +6,12 @@
   gap: 5.556vh;
 
   width: 7.813vw;
-  height: calc(100vh - max(15.185vh, 120px));
+  height: 100vh;
   min-width: 100px;
 
   padding: 2.5vh 1.4vw;
-
-  position: absolute;
+  
+  position: fixed;
   top: max(15.185vh, 120px);
   left: 0;
 
