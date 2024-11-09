@@ -8,19 +8,16 @@ import card from '../../../images/card.svg'
 import book from '../../../images/book.svg'
 
 function Menu() {
-  const [topPosition, setTopPosition] = useState('max(15.185vh, 120px)'); // начальное значение для top
+  const [topPosition, setTopPosition] = useState('max(15.185vh, 120px)');
 
-  // Функция для обработки прокрутки страницы
   const handleScroll = () => {
-    const scrollY = window.scrollY; // Получаем текущее значение прокрутки
-    const maxTop = Math.max(15.185 * window.innerHeight / 100, 120); // max(15.185vh, 120px)
+    const scrollY = window.scrollY;
+    const maxTop = Math.max(15.185 * window.innerHeight / 100, 120);
     
-    // Если прокрутка больше maxTop, то уменьшаем top
     if (scrollY > 0) {
-      const newTop = Math.max(0, maxTop - scrollY); // Уменьшаем top на количество прокрученных пикселей
+      const newTop = Math.max(0, maxTop - scrollY);
       setTopPosition(`${newTop}px`);
     } else {
-      // Восстанавливаем исходное значение top, если прокрутка меньше maxTop
       setTopPosition('max(15.185vh, 120px)');
     }
   };

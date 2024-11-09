@@ -66,4 +66,13 @@
   text-align: left;
   color: var(--color-White);
 
+  &::placeholder {
+    font-family: var(--font-familyInter);
+    font-size: var(--font-size20px);
+    font-weight: var(--font-weigth400);
+    line-height: var(--line-heigth24px);
+    text-align: left;
+    color: var(--color-White);
+    opacity: 0.6;
+  }
 }

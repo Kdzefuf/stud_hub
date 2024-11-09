@@ -31,7 +31,7 @@
   font-size: var(--font-size36px);
   font-weight: var(--font-weight600);
   line-height: var(--line-heigth43px);
-  text-align: left;
+  text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: var(--color-White);
@@ -41,6 +41,7 @@
   width: calc(100% - 40px - 13px);
   height: 4.5vh;
   min-height: 50px;
+  display: flex;
 }
 
 .search {

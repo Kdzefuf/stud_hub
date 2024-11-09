@@ -20,7 +20,8 @@ class PutUsersData {
   static async updateUser(id, changes) {
     try {
       const response = await APIClient.put(`/users/${id}`, changes);
-      return response.data; // Возвращаем обновлённые данные
+      if (response.status === 200) return true
+      return false;
     } catch (e) {
       console.error(e);
     }

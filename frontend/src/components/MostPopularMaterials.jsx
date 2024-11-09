@@ -6,12 +6,18 @@ import classes from '../styles/MostPopularMaterials.module.css'
 function MostPopularMaterials( { searchResults } ) {
   const [Materials, setMaterials] = useState([])
 
-  useEffect(async () => {
-    if (searchResults.length === 0) {
-      const response = await GetPopularMaterials.getPopularMaterials();
-      setMaterials(response);
-    } else setMaterials(searchResults)
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (searchResults.length === 0) {
+        const response = await GetPopularMaterials.getPopularMaterials();
+        setMaterials(response);
+      } else {
+        setMaterials(searchResults);
+      }
+    };
+
+    fetchData();
+  }, [searchResults]);
 
   return (
     <div className={classes.MostPopularMaterialsContent}>

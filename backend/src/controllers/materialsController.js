@@ -61,8 +61,8 @@ exports.getSortedMaterials = async (req, res) => {
 }
 
 exports.searchMaterials = async (req, res) => {
-  const { name } = req.query;
- 
+  const { query: name } = req.query;
+  
   try {
    const foundMaterials = await materialsModel.searchMaterials(name);
    res.status(200).json(foundMaterials);

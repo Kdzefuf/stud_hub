@@ -11,30 +11,12 @@ import PutUsersData from "../API/PutUsersData";
 function PersonalAccountContent() {
   const [forChange, setForChange] = useState([]);
   const [userData, setUserData] = useState(null);
-  const [Title, setTitle] = useState('');
 
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  
-
-  const fetchUserData = async (userId) => {
-    const data = await GetUserInfo.getUserInfo(userId);
-    setUserData(data);
-
-    setTitle(data.nickname);
-  };
-
-  useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem('userData'));
-    if (storedUserData) {
-      fetchUserData(storedUserData);
-    }
-  }, []);
-
 
   const change = async (e) => {
     e.preventDefault();
@@ -47,17 +29,42 @@ function PersonalAccountContent() {
     changes.push('')
     changes.push('')
     changes.push((surname !== userData.surname && surname !== "") ? surname : userData.surname);
-    // changes.push(userData.id)
+    
     if (changes.length === 0) {
       alert("Поля не изменены, попробуйте еще раз");
     } else {
       setForChange(changes);
 
-      const updatedUserInfo = await PutUsersData.updateUser(userData.id, changes);
-      console.log("Изменённые поля:", changes);
-      console.log("Обновлённая информация пользователя:", updatedUserInfo);
+      if (await PutUsersData.updateUser(userData.id, changes)) {
+        alert('Данные изменились')
+        fetchUserData(userData.id)
+      } else {
+        alert('Ошибка при изменении данных')
+      }
+
+      
+      setNickname('');
+      setName('');
+      setSurname('');
+      setEmail('');
+      setPassword('');
     }
   };
+
+  const fetchUserData = async (userId) => {
+    const data = await GetUserInfo.getUserInfo(userId);
+    setUserData(data);
+    fetchInputData(data);
+  };
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem('userData'));
+    if (storedUserData) {
+      fetchUserData(storedUserData);
+    }
+  }, []);
+
+  
 
   const handleNicknameChange = (event) => { setNickname(event.target.value); };
   const handleNameChange = (event) => { setName(event.target.value); };
@@ -65,9 +72,22 @@ function PersonalAccountContent() {
   const handleEmailChange = (event) => { setEmail(event.target.value); };
   const handlePasswordChange = (event) => { setPassword(event.target.value); };
 
+  const [inputName, setInputName] = useState('');
+  const [inputNickname, setInputNickname] = useState('');
+  const [inputSurname, setInputSurname] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
+
+  const fetchInputData = usersPlaceholder => {
+    console.log(usersPlaceholder)
+    setInputName(usersPlaceholder.name);
+    setInputNickname(usersPlaceholder.nickname);
+    setInputSurname(usersPlaceholder.surname);
+    setInputEmail(usersPlaceholder.email);
+  };
+
   return (
     <div className={classes.container}>
-      <h2 className={classes.title} >{`Профиль ${Title}'a`}</h2>
+      <h2 className={classes.title} >{`Профиль`}</h2>
       <Button currentClass="profileButton">
         <img className={classes.imgProfile} src={profile} alt="Аватарка"/>
         <img className={classes.imgPen} src={pen} alt="редактировать профиль"/>
@@ -75,19 +95,19 @@ function PersonalAccountContent() {
       <form className={classes.changeForm} onSubmit={change}>
         <div className={classes.labelGroup}>
           <h3 className={classes.labelTitle}>Имя<sup>*</sup></h3>
-          <Input type="text" currentClass="profileInput" value={name} onChange={handleNameChange} required={false} />
+          <Input placeholder={inputName} type="text" currentClass="profileInput" value={name} onChange={handleNameChange} required={false} />
         </div>
         <div className={classes.labelGroup}>
           <h3 className={classes.labelTitle}>Имя пользователя<sup>*</sup></h3>
-          <Input type="text" currentClass="profileInput" value={nickname} onChange={handleNicknameChange} required={false} />
+          <Input placeholder={inputNickname} type="text" currentClass="profileInput" value={nickname} onChange={handleNicknameChange} required={false} />
         </div>
         <div className={classes.labelGroup}>
           <h3 className={classes.labelTitle}>Фамилия<sup>*</sup></h3>
-          <Input type="text" currentClass="profileInput" value={surname} onChange={handleSurnameChange} required={false} />
+          <Input placeholder={inputSurname} type="text" currentClass="profileInput" value={surname} onChange={handleSurnameChange} required={false} />
         </div>
         <div className={classes.labelGroup}>
           <h3 className={classes.labelTitle}>Адрес электронной почты<sup>*</sup></h3>
-          <Input type="email" currentClass="profileInput" value={email} onChange={handleEmailChange} required={false} />
+          <Input placeholder={inputEmail} type="email" currentClass="profileInput" value={email} onChange={handleEmailChange} required={false} />
         </div>
         <div className={classes.labelGroup}>
           <h3 className={classes.labelTitle}>Пароль<sup>*</sup></h3>

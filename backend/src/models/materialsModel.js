@@ -71,6 +71,7 @@ exports.searchMaterials = async (name) => {
     'SELECT id, name, views_count, rating, file_type FROM materials WHERE LOWER(name) LIKE LOWER($1)',
     [`%${name}%`]
    );
+   console.log(result);
    return result.rows;
   } catch (err) {
    throw new Error('Error searching materials: ' + err.message);

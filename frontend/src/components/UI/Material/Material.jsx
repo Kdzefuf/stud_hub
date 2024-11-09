@@ -4,8 +4,6 @@ import images from '../Images/images.js';
 
 function Material(props) {
   const icon = images[props.fileType.toUpperCase()];
-
-  console.log(props.rating)
   return (
     <li className={classes.listItem}>
       <h3 className={classes.title}>{props.name}</h3>
