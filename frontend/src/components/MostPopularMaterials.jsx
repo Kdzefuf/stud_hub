@@ -3,37 +3,29 @@ import Material from './UI/Material/Material.jsx';
 import GetPopularMaterials from '../API/GetPopularMaterials';
 import classes from '../styles/MostPopularMaterials.module.css'
 
-function MostPopularMaterials(props) {
-  const [popularMaterials, setPopularMaterials] = useState([])
+function MostPopularMaterials( { searchResults } ) {
+  const [Materials, setMaterials] = useState([])
 
-  const fetchPopularMaterials = async () => {
-    const response = await GetPopularMaterials.getPopularMaterials();
-    setPopularMaterials(response);
-    console.log("Материалы получены");
-  };
-
-  useEffect(() => {
-    fetchPopularMaterials();
+  useEffect(async () => {
+    if (searchResults.length === 0) {
+      const response = await GetPopularMaterials.getPopularMaterials();
+      setMaterials(response);
+    } else setMaterials(searchResults)
   }, []);
 
   return (
     <div className={classes.MostPopularMaterialsContent}>
-      <h2 className={classes.title}>Популярные материалы</h2>
       <ul className={classes.MaterialsList}>
-        {popularMaterials.map(material => {
-            console.log(material);
-            return <Material
-                name={material.name}
-                description={material.description}
-                author={material.author_id}
-                rating={material.rating}
-                key={material.id}
-                fileType={material.file_type}
-                id={material.id}
-                title={material.title}
-                currentClass="material"
-              ></Material>
-          }
+        {Materials.map(material => {
+          return <Material
+            key={material.id}
+            name={material.name}
+            fileType={material.file_type}
+            views_count={material.views_count}
+            rating={material.rating}
+            id={material.id}
+            currentClass="material"
+            />}
         )}
       </ul>
     </div>
