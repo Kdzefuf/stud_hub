@@ -1,0 +1,44 @@
+.MenuItems {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5.556vh;
+
+  width: 7.813vw;
+  height: 100vh;
+  min-width: 100px;
+
+  padding: 2.5vh 1.4vw;
+  
+  position: fixed;
+  top: max(15.185vh, 120px);
+  left: 0;
+
+  background-color: var(--color-DarkSlateBlue);
+}
+
+.menuLinks {
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size14px);
+  font-weight: var(--font-weigth400);
+  line-height: var(--line-heigth16px);
+  color: var(--color-White);
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.img {
+  min-width: 40px;
+  min-height: 40px;
+  width: 3.125vw;
+  height: 5.556vh;
+}

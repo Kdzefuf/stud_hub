@@ -79,7 +79,7 @@ exports.updateUser = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await userModel.updateUser(id, req.body);
-    res.status(200).json(user);
+    res.status(200).send();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

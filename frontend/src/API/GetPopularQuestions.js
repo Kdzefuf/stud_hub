@@ -2,29 +2,28 @@ import APIClient from "./APIClient";
 import PopularQuestionsStubs from "./stubs/PopularQuestionsStubs";
 
 /**
- * Класс содержащий API для получение данных о пользователе
- * @class
+ * Класс, предоставляющий API для получения данных о популярных вопросах.
+ * @class GetPopularQuestions
  */
 class GetPopularQuestions {
   /**
-   * Функция возвращающая список самых популярных вопросов
+   * Получает список самых популярных вопросов.
    * @function
    * @async
    * @static
-   * @author RedStrike_rf(https://github.com/RedStrikeRF)
-   * @author Kdzefuf(https://github.com/Kdzefuf)
-   * @borrows axios for HTTPrequests
-   * @example getUserLoginStatus() - получение данных о пользователе
-   * @returns {object} возвращает статус пользователя
+   * @returns {Promise<object>} Объект, содержащий данные о популярных вопросах.
+   * @throws {Error} В случае ошибки выводит сообщение в консоль.
+   * @example
+   * const popularQuestions = await GetPopularQuestions.getPopularQuestions();
    */
   static async getPopularQuestions() {
     try {
       const response = await APIClient.get('/popularQuestions');
       return response.data;
     }
-    catch(e) {
-      console.log(e);
-      // return PopularQuestionsStubs;
+    catch (e) {
+      console.error(e);
+      return PopularQuestionsStubs; // Закомментировано для обработки ошибок
     }
   }
 }

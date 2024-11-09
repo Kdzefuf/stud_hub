@@ -29,6 +29,7 @@ const images = {
   CSV: CSV,
   DOC: DOC,
   JPG: JPG,
+  JPEG:JPG,
   JSON: JSON,
   MKV: MKV,
   MOV: MOV,

@@ -30,7 +30,7 @@ class UserSignUp {
       });
 
       if (response.status === 200) {
-        localStorage.setItem('userData', JSON.stringify({ email, password }));
+        localStorage.setItem('userData', JSON.stringify(response.data.id));
         return response.data;
       } else {
         console.error('Не удалось выполнить регистрацию. Статус:', response.status);

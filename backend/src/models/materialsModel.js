@@ -12,17 +12,39 @@ exports.getMaterials = async (limit, offset) => {
   } 
 }; 
 
-exports.getPopularMaterials = async () => {
+exports.getSortedMaterials = async (limit, offset, attribute) => {
   try {
-    const result = await pool.query('SELECT * FROM materials');
-    let sortedMaterials = sortMaterials(result.rows, 'views_count');
-    return sortedMaterials.slice(0, 10);
+    const result = await pool.query(
+      'SELECT id, name, views_count, rating, file_type FROM materials'
+    );
+
+    let sortedMaterials = sortMaterials(result.rows, attribute);
+
+    let paginatedMaterials = sortedMaterials.slice(offset, offset + limit);
+
+    return paginatedMaterials;
   } catch (err) {
     throw new Error('Error fetching popular materials: ' + err.message);
   }
 };
 
-function sortMaterials (materials, sortAttribute) {
+exports.getPopularMaterials = async (limit, offset) => {
+  try {
+    const result = await pool.query(
+      'SELECT id, name, views_count, rating, file_type FROM materials'
+    );
+
+    let sortedMaterials = sortMaterials(result.rows, 'views_count');
+
+    let paginatedMaterials = sortedMaterials.slice(offset, offset + limit);
+
+    return paginatedMaterials;
+  } catch (err) {
+    throw new Error('Error fetching popular materials: ' + err.message);
+  }
+};
+
+function sortMaterials(materials, sortAttribute) {
   return materials.sort((a, b) => {
     if (a[sortAttribute] < b[sortAttribute]) {
       return 1;
@@ -42,6 +64,19 @@ exports.getMaterialById = async (id) => {
     throw new Error('Error fetching materials by id: ' + err.message);
   }
 }
+
+exports.searchMaterials = async (name) => {
+  try {
+   const result = await pool.query(
+    'SELECT id, name, views_count, rating, file_type FROM materials WHERE LOWER(name) LIKE LOWER($1)',
+    [`%${name}%`]
+   );
+   console.log(result);
+   return result.rows;
+  } catch (err) {
+   throw new Error('Error searching materials: ' + err.message);
+  }
+}; 
 
 exports.createMaterial = async (materialData) => {
   const { id, name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
