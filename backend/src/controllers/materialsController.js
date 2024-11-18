@@ -71,6 +71,17 @@ exports.searchMaterials = async (req, res) => {
   }
 }
 
+exports.getMaterialsByTag = async (req, res) => {
+  const tag = req.query;
+  try {
+    const materials = await materialsModel.getMaterialsByTag(tag);
+    res.status(200).json(materials);
+  } catch (err) {
+    console.error('Ошибка при обработке запроса на получение материалов:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить материалов');
+  }
+}
+
 exports.createMaterial = async (req, res) => {
   try {
     const material = await materialsModel.createMaterial(req.body);

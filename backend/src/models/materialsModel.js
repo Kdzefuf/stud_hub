@@ -78,6 +78,15 @@ exports.searchMaterials = async (name) => {
   }
 }; 
 
+exports.getMaterialsByTag = async (tag) => {
+  try {
+    const result = await pool.query('SELECT * FROM materials WHERE tags @> $1;', [tag]);
+    return result.rows;
+  } catch (err) {
+    throw new Error('Error fetching materials by tag: ' + err.message);
+  }
+}
+
 exports.createMaterial = async (materialData) => {
   const { id, name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
   try {
