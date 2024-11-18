@@ -10,6 +10,8 @@ function QuestionsContent() {
   const searchInput = (e) => {setSearchValue(e.target.value)}
   const forSearch = (e) => {
     e.preventDefault();
+    
+    window.location.assign('/askQuestion')
   }
   
   return (
@@ -28,7 +30,7 @@ function QuestionsContent() {
           <Button 
             type="submit"
             currentClass="searchBar"
-            placeholder="Найти"
+            placeholder="Задать"
           />
         </form>
       </div>

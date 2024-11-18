@@ -5,6 +5,8 @@ import Questions from "../pages/Questions";
 import ExamMaterials from "../pages/ExamMaterials";
 import Materials from "../pages/Materials";
 import PersonalAccount from "../pages/PersonalAccount";
+import MaterialPage from "../pages/Material";
+import AskQuestion from "../pages/AskQuestion";
 
 const routes = [
   {
@@ -33,6 +35,11 @@ const routes = [
     isProtected: false,
   },
   {
+    path: '/materials/:id', // Параметр id материала в URL
+    component: MaterialPage,
+    isProtected: false,
+  },
+  {
     path: '/examMaterials',
     component: ExamMaterials,
     isProtected: true,
@@ -42,6 +49,11 @@ const routes = [
     component: PersonalAccount,
     isProtected: true,
   },
+  {
+    path: '/askQuestion',
+    component: AskQuestion,
+    isProtected: false,
+  }
 ];
 
 export default routes;

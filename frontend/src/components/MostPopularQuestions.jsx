@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Question from "./UI/Question/Question";
 import classes from '../styles/MostPopularQuestions.module.css';
 import GetPopularQuestions from "../API/GetPopularQuestions";
-
+import Button from "./UI/Button/Button";
 
 function MostPopularQuestions() {
   const [popularQuestions, setPopularQuestions] = useState([])
@@ -19,7 +19,10 @@ function MostPopularQuestions() {
 
   return (
     <div className={classes.MostPopularQuestionsContent}>
-      <h2 className={classes.title}>Популярные вопросы</h2>
+      <div className={classes.labelGroup}>
+          <Button type="button" currentClass="questionButton">Популярные вопросы</Button>
+          <Button type="button" currentClass="questionButton">Последние вопросы</Button>
+      </div>
       <ul className={classes.questionsList}>
         {popularQuestions.map(question =>
           <Question

@@ -2,8 +2,9 @@ import React, {useEffect, useState } from 'react';
 import Material from './UI/Material/Material.jsx';
 import GetPopularMaterials from '../API/GetPopularMaterials';
 import classes from '../styles/MostPopularMaterials.module.css'
+import { sort } from '../functions/sortFunctions.js';
 
-function MostPopularMaterials( { searchResults } ) {
+function MostPopularMaterials( { searchResults, sortOrder } ) {
   const [Materials, setMaterials] = useState([])
 
   useEffect(() => {
@@ -18,6 +19,14 @@ function MostPopularMaterials( { searchResults } ) {
 
     fetchData();
   }, [searchResults]);
+
+  useEffect(() => {
+    const sortedMaterials = [...Materials];
+    if (sortOrder.type) {
+      const sorted = sort(sortedMaterials, sortOrder.type, sortOrder.ascending);
+      setMaterials(sorted);
+    }
+  }, [sortOrder, searchResults]);
 
   return (
     <div className={classes.MostPopularMaterialsContent}>
