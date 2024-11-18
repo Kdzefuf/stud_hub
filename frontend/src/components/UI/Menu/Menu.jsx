@@ -32,11 +32,11 @@ function Menu() {
 
   return (
     <div className={styles.MenuItems} style={{ top: topPosition }}>
-      <a className={styles.menuLinks} href="/questions">
+      <a className={styles.menuLinks} href="/askQuestion">
         <img className={styles.img} src={plus} alt="Задать вопрос" />
         <span>Задать вопрос</span>
       </a>
-      <a className={styles.menuLinks} href="/forum">
+      <a className={styles.menuLinks} href="/questions">
         <img className={styles.img} src={forum} alt="Форум" />
         <span>Форум</span>
       </a>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from '../styles/MaterialsContent.module.css'
 import Input from "./UI/Input/Input";
 import Button from "./UI/Button/Button";
@@ -6,20 +6,12 @@ import MostPopularMaterials from "./MostPopularMaterials";
 import SearchMaterial from "../API/SearchMaterial";
 
 
-
 function MaterialsContent() {
   const [searchValue, setSearchValue] = useState('')
   const [searchResults, setSearchResults] = useState([]);
-  const [filterBackgroundColor, setFilterBackgroundColor] = useState('white')
-  const [filterColor, setFilterColor] = useState('#2E2E4F')
-
-  const filterToggle = () => {
-    setFilterBackgroundColor(filterBackgroundColor === 'white' ? '' : 'white');
-    setFilterColor(filterColor === '#2E2E4F' ? 'white' : '#2E2E4F');
-  }
-
+  // Функция поиска внутри поискового поля
+  // UPD: работает
   const searchInput = (e) => { setSearchValue(e.target.value) }
-
   const forSearch = async (e) => {
     e.preventDefault();
     try {
@@ -27,12 +19,51 @@ function MaterialsContent() {
       if (response) {
         setSearchResults(response);
         setSearchValue('');
+        setSortOrder({
+          type  : null,
+          ascending: true
+        })
       }
     } catch (error) {
       console.error('Ошибка при поиске материалов:', error);
     }
   };
 
+  const [filterIsOpen, setFilterIsOpen] = useState(false);
+  const [filterBackgroundColor, setFilterBackgroundColor] = useState('white')
+  const [filterColor, setFilterColor] = useState('#2E2E4F');
+  const [sortOrder, setSortOrder] = useState({
+    type: null,
+    ascending: true,
+  });
+
+  const filterToggle = () => {
+    setFilterBackgroundColor(filterBackgroundColor === 'white' ? '' : 'white');
+    setFilterColor(filterColor === '#2E2E4F' ? 'white' : '#2E2E4F');
+    setFilterIsOpen(!filterIsOpen);
+  }
+
+  const handleSortTypeChange = (e) => {
+    const newSortType = e.target.value;
+
+    setSortOrder((prevState) => {
+      if (prevState.type !== newSortType) {
+        console.log('новое')
+        return {
+          type: newSortType,
+          ascending: true,
+        };
+      } else {
+        console.log('тоже самое')
+        return {
+          ...prevState,
+          ascending: !prevState.ascending,
+        };
+      }
+    });
+  };
+
+  //Тут jsx разметка
   return (
     <div className={classes.container}>
       <div className={classes.MaterialsContent}>
@@ -48,6 +79,19 @@ function MaterialsContent() {
               <path d="M13.5993 11.0834H26.3827C27.4493 11.0834 28.316 11.95 28.316 13.0167V15.15C28.316 15.9334 27.8327 16.9 27.3493 17.3834L23.1827 21.0667C22.5993 21.55 22.216 22.5167 22.216 23.3V27.4667C22.216 28.05 21.8327 28.8167 21.3493 29.1167L19.9993 29.9667C18.7327 30.75 16.9993 29.8667 16.9993 28.3167V23.1834C16.9993 22.5 16.616 21.6334 16.216 21.15L12.5327 17.2667C12.0493 16.8 11.666 15.9167 11.666 15.3334V13.1167C11.666 11.95 12.5327 11.0834 13.5993 11.0834Z" stroke="#2E2E4F" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </Button>
+          {filterIsOpen && (
+            <div>
+              <label>
+                Тип сортировки:
+                <select value={sortOrder.type} onChange={handleSortTypeChange}>
+                  <option value="name">По названию</option>
+                  <option value="views_count">По просмотрам</option>
+                  <option value="rating">По рейтингу</option>
+                  <option value="reviews">По отзывам</option>
+                </select>
+              </label>
+            </div>
+          )}
           <form className={classes.searchBar} onSubmit={forSearch}>
             <Input
             type="text"
@@ -57,7 +101,7 @@ function MaterialsContent() {
             onChange={searchInput}
             currentClass="searchBar"
             />
-            <Button 
+            <Button
               type="submit"
               currentClass="searchBar"
               placeholder="Найти"
@@ -65,7 +109,7 @@ function MaterialsContent() {
           </form>
         </div>
       </div>
-      <MostPopularMaterials searchResults={searchResults} />
+      <MostPopularMaterials searchResults={searchResults} sortOrder={sortOrder}/>
     </div>
   )
 }

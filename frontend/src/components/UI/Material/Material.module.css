@@ -10,6 +10,8 @@
 
   padding: 3.704vh 2.1vw;
   position: relative;
+
+  cursor: pointer;
 }
 
 .title {
@@ -45,4 +47,12 @@
   color: var(--color-White);
   text-align: left;
   text-decoration-skip-ink: none;
+
+  display: flex;
+}
+
+.rating::after {
+  background-image: url(../../../images/star.svg);
+  background-position: right center;
+  background-repeat: no-repeat;
 }
