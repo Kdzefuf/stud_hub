@@ -65,7 +65,14 @@
 
   width: calc((100% - 11.111vw) / 2);
   min-width: 200px;
-}
+
+  &:nth-last-child(1) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  }
 
 .labelTitle {
   font-family: Inter;
@@ -73,5 +80,21 @@
   font-weight: 400;
   line-height: 24.2px;
   text-align: left;
+  color: white;
+}
+
+.back {
+  font-family: Inter;
+  font-size: var(--font-size24px);
+  font-weight: 700;
+  line-height: 29.05px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  max-width: 50%;
+  padding: 5px 10px;
+  border: 2px solid white;
+  border-radius: 20px;
+  background-color: transparent;
   color: white;
 }

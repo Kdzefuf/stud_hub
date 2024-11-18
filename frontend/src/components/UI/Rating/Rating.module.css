@@ -1,0 +1,13 @@
+.rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  height: 35px;
+
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}

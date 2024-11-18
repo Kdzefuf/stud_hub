@@ -21,18 +21,18 @@ exports.getReviewById = async (id) => {
 exports.findReviewsByMaterial = async (material_id) => {
     try {
       const result = await pool.query('SELECT * FROM reviews WHERE material_id = $1', [material_id]);
-      return result.rows[0];
+      return result.rows;
     } catch (err) {
       throw new Error('Error fetching review by material id: ' + err.message);
     }
 }
 
 exports.createReview = async (reviewData) => {
-  const { id, material_id, comment, rating, author_id, tags } = reviewData;
+  const { id, material_id, comment, rating, author_id } = reviewData;
   try {
     const result = await pool.query(
-      'INSERT INTO reviews (id, material_id, comment, rating, author_id, tags) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [id, material_id, comment, rating, author_id, tags]
+      'INSERT INTO reviews (id, material_id, comment, rating, author_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [id, material_id, comment, rating, author_id]
     );
     return result.rows[0];
   } catch (err) {
@@ -41,11 +41,11 @@ exports.createReview = async (reviewData) => {
 };
 
 exports.updateReview = async (id, reviewData) => {
-    const { material_id, comment, rating, author_id, tags } = reviewData;
+    const { material_id, comment, rating, author_id } = reviewData;
   try {
     const result = await pool.query(
-      'UPDATE reviews SET material_id = $2, comment = $3, rating = $4, author_id = $5, tags = $6 WHERE id = $1 RETURNING *',
-      [id, material_id, comment, rating, author_id, tags]
+      'UPDATE reviews SET material_id = $2, comment = $3, rating = $4, author_id = $5 WHERE id = $1 RETURNING *',
+      [id, material_id, comment, rating, author_id]
     );
     return result.rows[0];
   } catch (err) {

@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from "react";
 import GetMaterial from "../API/GetMaterial.js";
-// import images from '../images';
+import images from './UI/Images/images.js'
+import classes from '../styles/MaterialContent.module.css';
+import Rating from './UI/Rating/Rating.jsx';
+import Reviews from './UI/Reviews/Reviews.jsx';
 
-function MaterialContent(props) {
+function MaterialContent({ id }) {
   const [materialData, setMaterialData] = useState({});
-  const { id } = props;
+  const [date, setDate] = useState('');
+  id = Number(id);
 
+  function formatUnixToDate(unixTime) {
+    console.log(unixTime);
+    const dateObj = new Date(Number(unixTime));
+    const day = dateObj.getDate()
+    const month = dateObj.getMonth() + 1
+    const year = dateObj.getFullYear();
+    setDate(`${day}.${month}.${year}`);
+  }
   
   useEffect(() => {
+    formatUnixToDate(id);
     const fetchMaterialData = async () => {
       const data = await GetMaterial.getMaterial(id);
       setMaterialData(data);
@@ -17,16 +30,17 @@ function MaterialContent(props) {
   }, [id]);
 
   return (
-    <div>
-      <h1>{materialData.name}</h1>
-      <p><strong>Description:</strong> {materialData.description}</p>
-      <p><strong>Author ID:</strong> {materialData.author_id}</p>
-      <p><strong>Link:</strong> <a href={materialData.link} target="_blank" rel="noopener noreferrer">{materialData.link}</a></p>
-      <p><strong>Views:</strong> {materialData.views_count}</p>
-      <p><strong>Rating:</strong> {materialData.rating}</p>
-      <p><strong>Reviews:</strong> {materialData.reviews}</p>
-      <p><strong>Tags:</strong> {materialData.tags}</p>
-      <p><strong>File Type:</strong> {materialData.file_type}</p>
+    <div className={classes.container}>
+      <div className={classes.content}>
+        <img src={images[materialData.file_type]} alt="Профиль отзыв" className={classes.profile}/>
+        <div>
+          <h3 className={classes.title}>{materialData.name}</h3>
+          <p lassName={classes.descr}>{materialData.description}</p>
+        </div>
+        <Rating rating={materialData.rating}/>
+        <p className={classes.date}>{date}, просмотров: {materialData.views_count}</p>
+      </div>
+      <Reviews id={id}/>
     </div>
   );
 }

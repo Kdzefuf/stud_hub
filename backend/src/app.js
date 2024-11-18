@@ -5,6 +5,7 @@ const userController = require('./controllers/userController');
 const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
 const materialsModel = require('./models/materialsModel');
+const reviewsModel = require('./models/reviewsModel');
 const cors = require('cors');
 const validateUser = require('./middleware/validateUser');
 const errorHandler = require('./middleware/errorHandler');
@@ -22,7 +23,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getUsers());
+    getUsers();
   }
 });
 
@@ -48,17 +49,12 @@ const addMaterial = async () => {
   try {
     const newMaterial = {
       id: new Date().getTime(),
-      name: 'Big Data Analytics',
+      material_id: 1729603615922,
+      comment: 'Очень интересный и познавательный материал. Рекомендую!.',
+      rating: 3.8,
       author_id: 9,
-      link: 'https://example.com/big-data-analytics',
-      description: 'The power of big data in decision making and business.',
-      views_count: 325,
-      rating: 4.6,
-      reviews: 66,
-      tags: 'technology, data, analytics',
-      file_type: 'doc'
     };
-    const material = await materialsModel.createMaterial(newMaterial);
+    const material = await reviewsModel.createReview(newMaterial);
     console.log('User created:', material);
   } catch (err) {
     console.error('Error adding user:', err.message);

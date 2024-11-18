@@ -11,7 +11,7 @@ exports.getReviews = async (req, res) => {
 };
 
 exports.findReviewsByMaterial = async (req, res) => {
-  const { material_id } = req.body;
+  const { material_id } = req.params;
 
   try {
     const reviews = await reviewsModel.findReviewsByMaterial(material_id);

@@ -29,6 +29,7 @@ function SignIn() {
         
         if (response) {
           alert('Вход успешно выполнен!');
+          window.location.assign('/');
           setEmail('');
           setPassword('');
         } else {
