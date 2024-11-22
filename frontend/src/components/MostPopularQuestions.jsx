@@ -33,7 +33,7 @@ function MostPopularQuestions() {
             key={question.id}
             id={question.id}
             title={question.title}
-            tags={question.tegs}
+            tags={question.tags}
             currentClass="question"
           />
         )}
