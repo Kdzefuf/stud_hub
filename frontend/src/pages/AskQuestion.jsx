@@ -42,16 +42,17 @@ function AskQuestion() {
     e.preventDefault();
 
     const formData = {
-      topic,
-      questionText,
-      category,
+      author_id: localStorage.getItem('userData'),
+      title: topic,
+      description: questionText,
+      tags: category,
     };
 
     try {
       const responce = await AskQuestionApi.askQuestion(formData);
       if (responce) {
         alert('Вопрос успешно задан');
-        window.location.assign(`/home`);
+        window.location.assign(`/`);
       }
     } catch (error) {
       alert("Произошла ошибка при отправке вопроса. Попробуйте еще раз");

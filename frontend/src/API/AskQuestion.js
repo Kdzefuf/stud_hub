@@ -25,7 +25,7 @@ class AskQuestionApi {
    */
   static async askQuestion(questionData) {
     try {
-      const response = await APIClient.post("/askQuestion", questionData);
+      const response = await APIClient.post("/questions", questionData);
       return response.data;
     } catch (e) {
       console.error("Ошибка при отправке вопроса:", e);

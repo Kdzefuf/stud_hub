@@ -5,7 +5,7 @@ import PopularQuestionsStubs from "./stubs/PopularQuestionsStubs";
  * Класс, предоставляющий API для получения данных о популярных вопросах.
  * @class GetPopularQuestions
  */
-class GetPopularQuestions {
+class GetQuestions {
   /**
    * Получает список самых популярных вопросов.
    * @function
@@ -16,16 +16,16 @@ class GetPopularQuestions {
    * @example
    * const popularQuestions = await GetPopularQuestions.getPopularQuestions();
    */
-  static async getPopularQuestions() {
+  static async getQuestions(by="rating") {
     try {
-      const response = await APIClient.get('/popularQuestions');
+      const response = await APIClient.get('/sortedQuestions', { params: { by } });
       return response.data;
     }
     catch (e) {
       console.error(e);
-      return PopularQuestionsStubs; // Закомментировано для обработки ошибок
+      // return PopularQuestionsStubs; // Закомментировано для обработки ошибок
     }
   }
 }
 
-export default GetPopularQuestions;
+export default GetQuestions;

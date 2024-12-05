@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Question from "./UI/Question/Question";
 import classes from '../styles/MostPopularQuestions.module.css';
-import GetPopularQuestions from "../API/GetPopularQuestions";
+import GetQuestions from "../API/GetQuestions";
 import Button from "./UI/Button/Button";
 import Loader from "./UI/Loader/Loader";
 
@@ -14,19 +14,17 @@ function MostPopularQuestions() {
 
   const fetchPopularQuestions = async () => {
     setIsLoading(true)
-    const response = await GetPopularQuestions.getPopularQuestions();
+    const response = await GetQuestions.getQuestions("views_count");
     setQuestions(response);
     setIsLoading(false);
-    console.log("Вопросы получены");
   };
 
-  // const fetchLastQuestions = async () => {
-  //   setIsLoading(true)
-  //   const response = await GetLastQuestions.getLastQuestions();
-  //   setQuestions(response);
-  //   setIsLoading(false);
-  //   console.log("Вопросы получены");
-  // };
+  const fetchLastQuestions = async () => {
+    setIsLoading(true)
+    const response = await GetQuestions.getQuestions("id");
+    setQuestions(response);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     fetchPopularQuestions();
@@ -36,23 +34,23 @@ function MostPopularQuestions() {
     <div className={classes.MostPopularQuestionsContent}>
       <div className={classes.labelGroup}>
           <Button type="button" currentClass="questionButton" onClick={fetchPopularQuestions}>Популярные вопросы</Button>
-          <Button type="button" currentClass="questionButton" /* onClick={fetchLastQuestions}*/ >Последние вопросы</Button>
+          <Button type="button" currentClass="questionButton" onClick={fetchLastQuestions} >Последние вопросы</Button>
       </div>
       {isLoading ? (
         <Loader />
       ) : (
         <ul className={classes.questionsList}>
-          {questions.map(question =>
+          {questions.map(question => 
             <Question
-              name={question.name}
               description={question.description}
               author_id={question.author_id}
-              rating={question.rating}
+              author={question.author_name}
               key={question.id}
               id={question.id}
               title={question.title}
-              tags={question.tegs}
+              tags={question.tags}
               currentClass="question"
+              avatar={img}
             />
           )}
         </ul>

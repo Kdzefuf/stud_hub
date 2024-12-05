@@ -29,30 +29,11 @@ exports.getQuestionById = async (req, res) => {
   }
 };
 
-exports.getPopularQuestions = async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const offset = (page - 1) * limit;
-    
-    const questions = await questionsModel.getPopularQuestions(limit, offset);
-    res.status(200).json(questions);
-  } catch (err) {
-    console.error('Ошибка при обработке запроса на получение вопросов:', err);
-    res.status(500).send('Ошибка сервера, не удалось получить вопросов');
-  }
-};
-
 exports.getSortedQuestions = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 5;
-
-    const offset = (page - 1) * limit;
-
-    const attribute = req.query.attribute;
+    const attribute = req.query.by;
     
-    const questions = await questionsModel.getSortedQuestions(limit, offset, attribute);
+    const questions = await questionsModel.getSortedQuestions(attribute);
     res.status(200).json(questions);
   } catch (err) {
     console.error('Ошибка при обработке запроса на получение вопросов:', err);

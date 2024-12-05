@@ -42,10 +42,10 @@
 }
 
 .descr {
-  font-size: var(--font-size12px);
+  font-size: var(--font-size20px);
   font-family: var(--font-familyInter);
   font-weight: var(--font-weigth400);
-  line-height: var(--line-heigth29px);
+  line-height: var(--line-heigth24px);
   text-align: left;
   color: var(--color-White);
 }

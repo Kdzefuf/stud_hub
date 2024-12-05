@@ -92,13 +92,26 @@ exports.createMaterial = async (materialData) => {
   try {
     const result = await pool.query(
       'INSERT INTO materials (id, name, author_id, link, description, views_count, rating, tags, file_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, tags, file_type]
+      [new Date().getTime(), name, author_id, link, description, views_count, rating, tags, file_type]
     );
     return result.rows[0];
   } catch (err) {
     throw new Error('Error creating material: ' + err.message);
   }
 };
+
+exports.addMaterialFile = async (id, materialData) => {
+  const { file } = materialData;
+  try {
+    await pool.query(
+      'UPDATE materials SET file = $2 WHERE id = $1 RETURNING *',
+      [id, file]
+    );
+    return result.rows[0];
+  } catch (err) {
+    throw new Error('Error adding material file: ' + err.message);
+  }
+}
 
 exports.updateMaterial = async (id, materialData) => {
     const { name, author_id, link, description, views_count, rating, tags, file_type } = materialData;

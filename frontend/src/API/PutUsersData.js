@@ -26,6 +26,16 @@ class PutUsersData {
       console.error(e);
     }
   }
+
+  static async updateUserAvatar(id, avatar) {
+    try {
+      const response = await APIClient.put(`/users/avatar/${id}`, avatar);
+      if (response.status === 200) return response
+      return false;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export default PutUsersData;

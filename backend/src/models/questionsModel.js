@@ -12,37 +12,21 @@ exports.getQuestions = async (limit, offset) => {
   } 
 }; 
 
-exports.getSortedQuestions = async (limit, offset, attribute) => {
+exports.getSortedQuestions = async (attribute) => {
   try {
-    const result = await pool.query(
-      'SELECT id, title, tags, author_id, views_count FROM questions'
+    const result = await pool.query( 
+      `SELECT questions.id, questions.title, questions.tags, questions.author_id, questions.views_count, users.name AS author_name 
+       FROM questions 
+       JOIN users ON questions.author_id = users.id`
     );
 
     let sortedQuestions = sortQuestions(result.rows, attribute);
-
-    let paginatedQuestions = sortedQuestions.slice(offset, offset + limit);
-
-    return paginatedQuestions;
+    
+    return sortedQuestions;
   } catch (err) {
     throw new Error('Error fetching popular questions: ' + err.message);
   }
-};
-
-exports.getPopularQuestions = async (limit, offset) => {
-  try {
-    const result = await pool.query(
-      'SELECT id, title, tags, author_id, views_count FROM questions'
-    );
-
-    let sortedQuestions = sortQuestions(result.rows, 'views_count');
-
-    let paginatedQuestions = sortedQuestions.slice(offset, offset + limit);
-
-    return paginatedQuestions;
-  } catch (err) {
-    throw new Error('Error fetching popular questions: ' + err.message);
-  }
-};
+};  
 
 function sortQuestions(questions, sortAttribute) {
   return questions.sort((a, b) => {
@@ -87,11 +71,11 @@ exports.getQuestionsByTag = async (tag) => {
 }
 
 exports.createQuestion = async (questionData) => {
-  const { id, title, description, tags, author_id, views_count } = questionData;
+  const { id, title, description, tags, author_id } = questionData;
   try {
     const result = await pool.query(
       'INSERT INTO questions (id, title, description, tags, author_id, views_count) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [id, title, description, tags, author_id, views_count]
+      [new Date().getTime(), title, description, tags, author_id, 0]
     );
     return result.rows[0];
   } catch (err) {

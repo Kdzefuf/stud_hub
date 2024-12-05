@@ -34,13 +34,14 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    getUsers();
+    const photo = '../../frontend/src/images/Logo.png';
+    getUsers()
   }
 });
 
 const getUsers = async () => {
   try {
-    const user = await userModel.findUserByNickname('testnick');
+    const user = await userModel.getUsers();
     console.log(user);
   } catch (err) {
     console.error('Error deleting user:', err.message);

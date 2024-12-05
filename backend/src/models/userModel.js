@@ -49,6 +49,15 @@ exports.createUser = async (userData) => {
   }
 };
 
+exports.addAvatar = async (id, avatar) => {
+  try {
+    await pool.query('UPDATE users SET photo = $1 WHERE id = $2', [avatar, id]);
+    return avatar;
+  } catch (err) {
+    throw new Error('Error adding avatar: ' + err.message);
+  }
+}
+
 exports.updateUser = async (id, userData) => {
   const [ nickname, name, email, password, shedule, photo, surname ] = userData;
 

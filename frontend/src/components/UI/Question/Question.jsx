@@ -8,12 +8,12 @@ function Question(props) {
 
   useEffect(() => {
     // Получаем информацию о дате вопроса исходя из его id
-    const newDate = new Date(props.id);
+    const newDate = new Date(Number(props.id));
     setDate(newDate.toLocaleDateString());
-
     // Получаем информацию о нике пользователя
-    setAuthor(GetUserInfo.getUserInfo(props.author_id).nickname)
-  }, [props.id]);
+    // setAuthor(GetUserInfo.getUserInfo(props.author_id))
+    setAuthor(props.author_id)
+  }, []);
 
   const currentQuestionPage = () => {
     window.location.assign(`/questions/${props.id}`);

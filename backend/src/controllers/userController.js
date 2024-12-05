@@ -75,6 +75,17 @@ exports.createUser = async (req, res) => {
   }
 };
 
+exports.addAvatar = async (req, res) => {
+  const { id } = req.params;
+  const avatar = req.file;
+  try {
+    const user = await userModel.addAvatar(id, avatar);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   try {
