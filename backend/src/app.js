@@ -1,10 +1,16 @@
 const express = require('express');
 const pool = require('./config/db');
-const userRoutes = require('./routes/index');
+const questionsRoutes = require('./routes/questionsRoutes');
+const userRoutes = require('./routes/usersRoutes');
+const materialRoutes = require('./routes/materialsRoutes');
+const reviewRoutes = require('./routes/reviewsRoutes');
+const teacherRoutes = require('./routes/teachersRoutes');
 const userController = require('./controllers/userController');
 const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
 const materialsModel = require('./models/materialsModel');
+const reviewsModel = require('./models/reviewsModel');
+const questionsModel = require('./models/questionsModel');
 const cors = require('cors');
 const validateUser = require('./middleware/validateUser');
 const errorHandler = require('./middleware/errorHandler');
@@ -14,7 +20,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 // app.use(validateUser);
+
+app.use('/api', questionsRoutes);
 app.use('/api', userRoutes);
+app.use('/api', materialRoutes);
+app.use('/api', reviewRoutes);
+app.use('/api', teacherRoutes);
+
 app.use(errorHandler);
 
 pool.query('SELECT NOW()', (err, res) => {
@@ -22,7 +34,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error connecting to the database', err.stack);
   } else {
     console.log('Connected to the database:', res.rows);
-    console.log(getUsers());
+    getUsers();
   }
 });
 
@@ -48,17 +60,13 @@ const addMaterial = async () => {
   try {
     const newMaterial = {
       id: new Date().getTime(),
-      name: 'Big Data Analytics',
+      title: "Напомните игру про отца абьюзера который сына убил",
+      description: 'Игра вроде недавно вышла, в тик токе много видео было. Инди игра с темной атмосферой где отец абьюзер, он там еще сына своего убил (душил и нес куда то), и были вроде моменты, где он жену избивал',
+      tags: "очень важное",
       author_id: 9,
-      link: 'https://example.com/big-data-analytics',
-      description: 'The power of big data in decision making and business.',
-      views_count: 325,
-      rating: 4.6,
-      reviews: 66,
-      tags: 'technology, data, analytics',
-      file_type: 'doc'
+      views_count: 90
     };
-    const material = await materialsModel.createMaterial(newMaterial);
+    const material = await questionsModel.createQuestion(newMaterial);
     console.log('User created:', material);
   } catch (err) {
     console.error('Error adding user:', err.message);

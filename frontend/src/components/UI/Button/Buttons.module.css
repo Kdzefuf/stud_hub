@@ -70,3 +70,17 @@
     color: var(--color-White);
   }
 }
+
+.saveButton {
+  font-family: Inter;
+  font-size: var(--font-size24px);
+  font-weight: 700;
+  line-height: 29.05px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  max-width: 50%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+}

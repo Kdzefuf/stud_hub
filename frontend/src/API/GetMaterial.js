@@ -19,7 +19,7 @@ class GetMaterial {
    */
   static async getMaterial(id) {
     try {
-      const response = await APIClient.get(`/material/${id}`);
+      const response = await APIClient.get(`/materials/${id}`);
       return response.data;
     } catch (e) {
       console.error(e);
