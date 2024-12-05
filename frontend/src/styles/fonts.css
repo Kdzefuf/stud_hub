@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
+  /* св-ва padding */
+  --px30-padding: max(15px, 1.563vw);
+
+ /* Простые прописанные резиновые размеры */
+  --px25width: max(25px, 1.3vw);
 
   /* св-ва font-size */
   --font-size12px: max(0.625vw, 8px);
