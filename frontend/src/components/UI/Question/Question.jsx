@@ -1,32 +1,34 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import classes from './Question.module.css'
-import avatar from '../../../images/profile.svg'
+import GetUserInfo from "../../../API/GetUserInfo";
+
 function Question(props) {
   const [date, setDate] = useState('');
-
-  function formatUnixToDate(unixTime) {
-    
-    const dateObj = new Date(Number(unixTime));
-    const day = dateObj.getDate()
-    const month = dateObj.getMonth() + 1
-    const year = dateObj.getFullYear();
-    setDate(`${day}.${month}.${year}`);
-  }
+  const [author, setAuthor] = useState('');
 
   useEffect(() => {
-    formatUnixToDate(props.id)
-  })
-  
+    // Получаем информацию о дате вопроса исходя из его id
+    const newDate = new Date(props.id);
+    setDate(newDate.toLocaleDateString());
+
+    // Получаем информацию о нике пользователя
+    setAuthor(GetUserInfo.getUserInfo(props.author_id).nickname)
+  }, [props.id]);
+
+  const currentQuestionPage = () => {
+    window.location.assign(`/questions/${props.id}`);
+  }
 
   return (
-    <li className={classes[props.currentClass]} key={props.key}>
-      <img src={avatar} alt="Аватарка пользователя" />
-      <div>
+    <li className={classes[props.currentClass]} key={props.key} onClick={currentQuestionPage}>
+      <img className={classes.avatar} src={props.avatar} alt="аватар профиля пользователя" />
+      <div className={classes.content}>
         <h3 className={classes.title}>{props.title}</h3>
-        <p className={classes.bottom}>
-          <p>{props.author_id}</p>  
-          <p>{props.tags ? props.tags : "нет категории"}</p>  
-          <p>{date}</p>
+        <p className={classes.descr}>
+          <span> {props.author}, </span>
+          <span> Категория: {props.tags}, </span>
+          <span> {date}, </span>
+          <span> Ответов: {props.answer_count}</span>
         </p>
       </div>
     </li>

@@ -7,6 +7,7 @@ import Materials from "../pages/Materials";
 import PersonalAccount from "../pages/PersonalAccount";
 import MaterialPage from "../pages/Material";
 import AskQuestion from "../pages/AskQuestion";
+import QuestionPage from "../pages/Question";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
   {
     path: '/questions',
     component: Questions,
+    isProtected: false,
+  },
+  {
+    path: '/questions/:id', // Параметр id вопроса в URL
+    component: QuestionPage,
     isProtected: false,
   },
   {
