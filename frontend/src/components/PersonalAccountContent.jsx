@@ -9,6 +9,7 @@ import pen from '../images/pen.svg'
 import PutUsersData from "../API/PutUsersData";
 
 function PersonalAccountContent() {
+  const fileInputRef = useRef(null);
   const [forChange, setForChange] = useState([]);
   const [userData, setUserData] = useState(null);
   const [avatar, setAvatar] = useState(profile);
@@ -53,8 +54,10 @@ function PersonalAccountContent() {
 
   const fetchUserData = async (userId) => {
     const data = await GetUserInfo.getUserInfo(userId);
+    console.log(data)
     setUserData(data);
     fetchInputData(data);
+
   };
 
   useEffect(() => {
@@ -82,6 +85,7 @@ function PersonalAccountContent() {
     setInputNickname(usersPlaceholder.nickname);
     setInputSurname(usersPlaceholder.surname);
     setInputEmail(usersPlaceholder.email);
+    setAvatar(usersPlaceholder.photo ? `http://localhost:3500/uploads/${usersPlaceholder.photo}` : profile)
   };
 
   const handleAvatarChange = (e) => {
@@ -100,10 +104,7 @@ function PersonalAccountContent() {
       // Отправляем запрос на обновление аватара
       const response = await PutUsersData.updateUserAvatar(userData.id, formData);
       if (response) {
-        alert("Аватар успешно обновлен");
-        // Формируем URL для нового аватара
-        const newAvatarUrl = `../../../backend/src/uploads/${response.data.filename}`;
-        // /backend/src/uploads
+        const newAvatarUrl = `http://localhost:3500/uploads/${response.data}`;
         console.log(newAvatarUrl)
         // Обновляем данные пользователя
         setUserData((prevData) => ({
@@ -112,6 +113,7 @@ function PersonalAccountContent() {
         }));
         setAvatar(newAvatarUrl)
   
+        alert("Аватар успешно обновлен");
         // Если используется fetchUserData для обновления всего объекта:
         // fetchUserData(userData.id); 
       } else {
@@ -122,40 +124,29 @@ function PersonalAccountContent() {
       alert("Ошибка при загрузке аватара");
     }
   };
-  
-  // const postAvatar = async (file) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("avatar", file);
-  //     console.log(formData);
-  //     const response = await PutUsersData.updateUserAvatar(userData.id, formData);
-  //     if (response) {
-  //       alert("Аватар успешно обновлен");
-  //       fetchUserData(userData.id);
-  //     } else {
-  //       alert("Ошибка при обновлении аватара");
-  //     }
-  //   } catch (error) {
-  //     console.error("Ошибка при загрузке аватара:", error);
-  //     alert("Ошибка при загрузке аватара");
-  //   }
-  // };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Эмулируем клик по input
+    }
+  };
 
   return (
     <div className={classes.container}>
       <h2 className={classes.title} >{`Профиль`}</h2>
       <div className={classes.avatarWrapper}>
-        <Button currentClass="profileButton">
-          <img className={classes.imgProfile} src={avatar} alt="Аватарка"/>
-          <img className={classes.imgPen} src={pen} alt="редактировать профиль"/>
-        </Button>
         <label className={classes.imgPenWrapper}>
           <input
             type="file"
             accept="image/*"
             className={classes.fileInput}
             onChange={handleAvatarChange}
+            ref={fileInputRef}
           />
+          <Button currentClass="" onClick={triggerFileInput}>
+            <img className={classes.imgProfile} src={avatar} alt="Аватарка"/>
+            <img className={classes.imgPen} src={pen} alt="редактировать профиль"/>
+          </Button>
         </label>
       </div>
       

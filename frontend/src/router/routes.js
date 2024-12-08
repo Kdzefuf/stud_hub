@@ -8,6 +8,7 @@ import PersonalAccount from "../pages/PersonalAccount";
 import MaterialPage from "../pages/Material";
 import AskQuestion from "../pages/AskQuestion";
 import QuestionPage from "../pages/Question";
+import DownloadMaterial from "../pages/DownloadMaterial";
 
 const routes = [
   {
@@ -28,22 +29,27 @@ const routes = [
   {
     path: '/questions',
     component: Questions,
-    isProtected: false,
+    isProtected: true,
   },
   {
     path: '/questions/:id', // Параметр id вопроса в URL
     component: QuestionPage,
-    isProtected: false,
+    isProtected: true,
   },
   {
     path: '/materials',
     component: Materials,
-    isProtected: false,
+    isProtected: true,
   },
   {
     path: '/materials/:id', // Параметр id материала в URL
     component: MaterialPage,
-    isProtected: false,
+    isProtected: true,
+  },
+  {
+    path: '/downloadMaterials',
+    component: DownloadMaterial,
+    isProtected: true,
   },
   {
     path: '/examMaterials',
@@ -58,7 +64,7 @@ const routes = [
   {
     path: '/askQuestion',
     component: AskQuestion,
-    isProtected: false,
+    isProtected: true,
   }
 ];
 

@@ -54,3 +54,20 @@
 
   width: 100%;
 }
+
+
+
+.ButtonText {
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size24px);
+  font-weight: var(--font-weight700);
+  line-height: var(--line-heigth29px);
+  text-align: center;
+  color: var(--color-White);
+}
+
+.ButtonIMG {
+  max-width: 80px;
+  width: 50%;
+  height: 50%;
+}

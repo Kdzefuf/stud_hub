@@ -40,14 +40,22 @@ exports.createUser = async (userData) => {
   const { nickname, name, surname, email, password } = userData;
   try {
     const result = await pool.query(
-      'INSERT INTO users (nickname, name, email, password, surname) VALUES ($1, $2, $3, $4, $5) RETURNING id',
-      [nickname, name, email, password, surname]
+      'INSERT INTO users (id, nickname, name, email, password, surname) VALUES ($1, $2, $3, $4, $5. $6) RETURNING id',
+      [generateRandomStringCrypto(15), nickname, name, email, password, surname]
     );
     return result.rows[0];
   } catch (err) {
     throw new Error('Error creating user: ' + err.message);
   }
 };
+
+function generateRandomStringCrypto(length) {
+  const array = new Uint8Array(length);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, (dec) =>
+    String.fromCharCode(dec % 62 + (dec % 2 === 0 ? 48 : 97))
+  ).join("");
+}
 
 exports.addAvatar = async (id, avatar) => {
   try {

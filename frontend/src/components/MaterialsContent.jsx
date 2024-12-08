@@ -5,10 +5,16 @@ import Button from "./UI/Button/Button";
 import MostPopularMaterials from "./MostPopularMaterials";
 import SearchMaterial from "../API/SearchMaterial";
 
+import buttonImg from "../images/File.svg"
 
 function MaterialsContent() {
   const [searchValue, setSearchValue] = useState('')
   const [searchResults, setSearchResults] = useState([]);
+
+  const DownloadMaterial = () => {
+    window.location.assign('/downloadMaterials');
+  }
+
   // Функция поиска внутри поискового поля
   // UPD: работает
   const searchInput = (e) => { setSearchValue(e.target.value) }
@@ -110,6 +116,10 @@ function MaterialsContent() {
         </div>
       </div>
       <MostPopularMaterials searchResults={searchResults} sortOrder={sortOrder}/>
+      <Button currentClass="DownloadButton" onClick={DownloadMaterial}>
+        <img className={classes.ButtonIMG} src={buttonImg} alt="file download"/>
+        <p className={classes.ButtonText}>Добавить учебный материал</p>
+      </Button>
     </div>
   )
 }

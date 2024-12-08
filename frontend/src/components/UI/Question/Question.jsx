@@ -13,6 +13,7 @@ function Question(props) {
     // Получаем информацию о нике пользователя
     // setAuthor(GetUserInfo.getUserInfo(props.author_id))
     setAuthor(props.author_id)
+    console.log(props.tags)
   }, []);
 
   const currentQuestionPage = () => {
@@ -26,7 +27,9 @@ function Question(props) {
         <h3 className={classes.title}>{props.title}</h3>
         <p className={classes.descr}>
           <span> {props.author}, </span>
-          <span> Категория: {props.tags}, </span>
+          <span> Категория: {[...props.tags].map((tag, index) => {
+            return (<span>{tag}, </span>)
+          })}</span>
           <span> {date}, </span>
           <span> Ответов: {props.answer_count}</span>
         </p>

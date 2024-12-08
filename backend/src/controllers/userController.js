@@ -44,7 +44,6 @@ exports.getUserByNickname = async (req, res) => {
 
 exports.getUserByEmail = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req);
   try {
     const user = await userModel.findUserByEmail(email);
     
@@ -77,7 +76,7 @@ exports.createUser = async (req, res) => {
 
 exports.addAvatar = async (req, res) => {
   const { id } = req.params;
-  const avatar = req.file;
+  const avatar = req.file.filename;
   try {
     const user = await userModel.addAvatar(id, avatar);
     res.status(200).json(user);

@@ -1,8 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = `${Date.now()}-${file.originalname}`;
+        cb(null, uniqueName);
+    },
+});
+  
+const upload = multer({ storage });
 
 router.get('/users', userController.getUsers);
 router.post('/signup', userController.createUser);

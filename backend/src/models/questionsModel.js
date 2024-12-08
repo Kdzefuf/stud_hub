@@ -15,7 +15,7 @@ exports.getQuestions = async (limit, offset) => {
 exports.getSortedQuestions = async (attribute) => {
   try {
     const result = await pool.query( 
-      `SELECT questions.id, questions.title, questions.tags, questions.author_id, questions.views_count, users.name AS author_name 
+      `SELECT questions.id, questions.title, questions.author_id, questions.views_count, questions.tags, users.name AS author_name 
        FROM questions 
        JOIN users ON questions.author_id = users.id`
     );
@@ -52,7 +52,7 @@ exports.getQuestionById = async (id) => {
 exports.searchQuestions = async (title) => {
   try {
    const result = await pool.query(
-    'SELECT id, title, tags, author_id, views_count FROM questions WHERE LOWER(title) LIKE LOWER($1)',
+    'SELECT id, title, author_id, views_count, tags FROM questions WHERE LOWER(title) LIKE LOWER($1)',
     [`%${title}%`]
    );
    return result.rows;
@@ -75,7 +75,7 @@ exports.createQuestion = async (questionData) => {
   try {
     const result = await pool.query(
       'INSERT INTO questions (id, title, description, tags, author_id, views_count) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [new Date().getTime(), title, description, tags, author_id, 0]
+      [new Date().getTime(), title, description, '{'+tags+'}', author_id, 0]
     );
     return result.rows[0];
   } catch (err) {
@@ -87,7 +87,7 @@ exports.updateQuestion = async (id, questionData) => {
     const { title, description, tags, author_id, views_count } = questionData;
   try {
     const result = await pool.query(
-      'UPDATE materials SET title = $2, description = $3, tags = $4, author_id = $5, views_count = $6 WHERE id = $1 RETURNING *',
+      'UPDATE materials SET title = $2, description = $3, author_id = $5, views_count = $6, tags = $4 WHERE id = $1 RETURNING *',
       [id, title, description, tags, author_id, views_count]
     );
     return result.rows[0];

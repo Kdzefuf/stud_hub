@@ -14,6 +14,7 @@ const questionsModel = require('./models/questionsModel');
 const cors = require('cors');
 const validateUser = require('./middleware/validateUser');
 const errorHandler = require('./middleware/errorHandler');
+const path = require('path');
 
 const app = express();
 
@@ -100,6 +101,8 @@ const deleteMatreial = async (materialId) => {
     console.error('Error deleting user:', err.message);
   }
 };
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = 3500;
 app.listen(PORT, () => {

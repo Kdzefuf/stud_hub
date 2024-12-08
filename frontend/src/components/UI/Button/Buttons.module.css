@@ -15,6 +15,7 @@
 }
 
 .formButton {
+  align-self: center;
   background-color: var(--color-White);
 
   font-family: var(--font-familyInter);
@@ -83,4 +84,38 @@
   padding: 5px 10px;
   border: none;
   border-radius: 20px;
+}
+
+.DownloadButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  width: 15vw;
+  height: 20vh;
+
+  background-color: var(--color-CharcoalBlue);
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius40px);
+
+  position: absolute;
+  right: 2vw;
+  top: 24vh;
+}
+
+.fileInput {
+  border-radius: 15px;
+
+  min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  background-color: var(--color-White);
+
+  padding: 10px;
 }

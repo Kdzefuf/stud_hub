@@ -30,12 +30,8 @@ exports.getMaterialById = async (req, res) => {
 };
 
 exports.getPopularMaterials = async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const offset = (page - 1) * limit;
-    
-    const materials = await materialsModel.getPopularMaterials(limit, offset);
+  try { 
+    const materials = await materialsModel.getPopularMaterials();
     res.status(200).json(materials);
   } catch (err) {
     console.error('Ошибка при обработке запроса на получение материалов:', err);
@@ -84,7 +80,9 @@ exports.getMaterialsByTag = async (req, res) => {
 
 exports.createMaterial = async (req, res) => {
   try {
-    const material = await materialsModel.createMaterial(req.body);
+    console.log(req.body);
+    console.log(req.file);
+    const material = await materialsModel.createMaterial(req.body, req.file.filename);
     res.status(200).json(material);
   } catch (err) {
     res.status(500).json({ error: err.message });

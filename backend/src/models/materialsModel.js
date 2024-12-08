@@ -28,7 +28,7 @@ exports.getSortedMaterials = async (limit, offset, attribute) => {
   }
 };
 
-exports.getPopularMaterials = async (limit, offset) => {
+exports.getPopularMaterials = async () => {
   try {
     const result = await pool.query(
       'SELECT id, name, views_count, rating, file_type FROM materials'
@@ -36,9 +36,7 @@ exports.getPopularMaterials = async (limit, offset) => {
 
     let sortedMaterials = sortMaterials(result.rows, 'views_count');
 
-    let paginatedMaterials = sortedMaterials.slice(offset, offset + limit);
-
-    return paginatedMaterials;
+    return sortedMaterials;
   } catch (err) {
     throw new Error('Error fetching popular materials: ' + err.message);
   }
@@ -67,12 +65,11 @@ exports.getMaterialById = async (id) => {
 
 exports.searchMaterials = async (name) => {
   try {
-   const result = await pool.query(
-    'SELECT id, name, views_count, rating, file_type FROM materials WHERE LOWER(name) LIKE LOWER($1)',
-    [`%${name}%`]
-   );
-   console.log(result);
-   return result.rows;
+    const result = await pool.query(
+      'SELECT id, name, views_count, rating, file_type FROM materials WHERE LOWER(name) LIKE LOWER($1)',
+      [`%${name}%`]
+    );
+    return result.rows;
   } catch (err) {
    throw new Error('Error searching materials: ' + err.message);
   }
@@ -87,12 +84,12 @@ exports.getMaterialsByTag = async (tag) => {
   }
 }
 
-exports.createMaterial = async (materialData) => {
-  const { id, name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
+exports.createMaterial = async (materialData, file) => {
+  const { name, author_id, description, tags, file_type } = materialData;
   try {
     const result = await pool.query(
-      'INSERT INTO materials (id, name, author_id, link, description, views_count, rating, tags, file_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-      [new Date().getTime(), name, author_id, link, description, views_count, rating, tags, file_type]
+      'INSERT INTO materials (id, name, author_id, description, views_count, rating, file_type, reviews_count, tags, file) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+      [new Date().getTime(), name, author_id, description, 0, 0, file_type, 0, '{'+tags+'}', file]
     );
     return result.rows[0];
   } catch (err) {
