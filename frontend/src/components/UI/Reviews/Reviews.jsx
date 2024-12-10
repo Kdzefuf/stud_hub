@@ -15,10 +15,15 @@ function Reviews({id}) {
   }, []);
 
   return (
-    <ul>
+    <ul style={{ 
+      width: '100%', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      gap: '30px', 
+      flexWrap: 'nowrap' 
+    }}>
       {reviews.length > 0 ? (
         reviews.map((review) => {
-          console.log(review);
           return <Review review={review} />;
         })
       ) : (

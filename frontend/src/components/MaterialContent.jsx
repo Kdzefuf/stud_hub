@@ -4,6 +4,7 @@ import images from './UI/Images/images.js'
 import classes from '../styles/MaterialContent.module.css';
 import Rating from './UI/Rating/Rating.jsx';
 import Reviews from './UI/Reviews/Reviews.jsx';
+import Button from './UI/Button/Button.jsx'
 
 function MaterialContent({ id }) {
   const [materialData, setMaterialData] = useState({});
@@ -56,15 +57,14 @@ function MaterialContent({ id }) {
     <div className={classes.container}>
       <div className={classes.content}>
         <img src={images[String(materialData.file_type).toUpperCase()]} alt="Профиль отзыв" className={classes.profile}/>
-        <div>
-          <h3 className={classes.title}>{materialData.name}</h3>
-          <p lassName={classes.descr}>{materialData.description}</p>
+        <div className={classes.maxSpace}>
+          <h3 className={classes.title}>{materialData.name} <Button currentClass="downloadButton" onClick={handleDownload} /></h3>
+          <p className={classes.descr}>{materialData.description}</p>
         </div>
         <Rating rating={materialData.rating}/>
         <p className={classes.date}>{date}, просмотров: {materialData.views_count}</p>
       </div>
       <Reviews id={id}/>
-      <button onClick={handleDownload}>Скачать</button>
     </div>
   );
 }

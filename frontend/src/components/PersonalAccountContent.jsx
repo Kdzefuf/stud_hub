@@ -143,7 +143,7 @@ function PersonalAccountContent() {
             onChange={handleAvatarChange}
             ref={fileInputRef}
           />
-          <Button currentClass="" onClick={triggerFileInput}>
+          <Button currentClass="profileButton" onClick={triggerFileInput}>
             <img className={classes.imgProfile} src={avatar} alt="Аватарка"/>
             <img className={classes.imgPen} src={pen} alt="редактировать профиль"/>
           </Button>
