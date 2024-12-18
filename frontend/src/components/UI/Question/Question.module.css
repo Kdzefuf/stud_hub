@@ -1,34 +1,51 @@
 .question {
-  background-color: var(--color-CharcoalBlue);
-  width: 100%;
-  border-radius: 40px;
-  padding: 15px 20px;
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 1.5vw;
+  flex-wrap: nowrap;
+
+  background-color: var(--color-CharcoalBlue);
+
+  width: 100%;
+  min-height: calc(var(--px30-padding) + 100px);
+
+  border-radius: var(--border-radius40px);
+
+  padding: var(--px30-padding) calc(var(--px30-padding) + 10px);
+
+  cursor: pointer;
+}
+
+.avatar {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--px25width);
+  flex-wrap: nowrap;
 }
 
 .title {
-  font-family: Inter;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 29.05px;
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size24px);
+  font-weight: var(--font-weigth700);
+  line-height: var(--line-heigth29px);
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: white;
+  color: var(--color-White);
 }
 
-.bottom {
-  font-family: Inter;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24.2px;
+.descr {
+  font-size: var(--font-size20px);
+  font-family: var(--font-familyInter);
+  font-weight: var(--font-weigth400);
+  line-height: var(--line-heigth24px);
   text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: white;
+  color: var(--color-White);
 }

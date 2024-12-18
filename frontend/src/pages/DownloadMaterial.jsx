@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import classes from "../styles/AskQuestion.module.css";
+import React, {useState, useRef} from 'react';
+import classes from "../styles/DownloadMaterial.module.css";
 import Header from "../components/Header";
 import Button from '../components/UI/Button/Button';
-import AskQuestionApi from "../API/AskQuestion";
+import DownloadFileAPI from "../API/DownloadFileAPI.js";
 
-function AskQuestion() {
+import buttonImg from "../images/add-square.svg"
+
+function DownoloadMaterial() {
+  const fileInputRef = useRef(null);
+  const [file, setFile] = useState();
   const [topic, setTopic] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [category, setCategory] = useState("");
@@ -40,46 +44,64 @@ function AskQuestion() {
   // Обработка отправки формы
   const tryAsk = async (e) => {
     e.preventDefault();
-
     const formData = {
       author_id: localStorage.getItem('userData'),
-      title: topic,
+      file,
+      name: topic,
       description: questionText,
       tags: category,
+      file_type: file.name.split('.').pop().toLowerCase()
     };
-    if (Boolean(formData.title) & Boolean(formData.description) & Boolean(formData.tags))
+    
+    if (Boolean(formData.name) & Boolean(formData.description) & Boolean(formData.tags) & Boolean(file))
       try {
-        const responce = await AskQuestionApi.askQuestion(formData);
+        const responce = await DownloadFileAPI.uploadFile(formData);
         if (responce) {
-          alert('Вопрос успешно задан');
+          alert('Файл успешно загружен');
           window.location.assign(`/`);
         }
       } catch (error) {
-        alert("Произошла ошибка при отправке вопроса. Попробуйте еще раз");
+        alert("Произошла ошибка при отправке файла. Попробуйте еще раз");
       }
     else alert('Одно из полей пустое, введи корректные значения')
   };
 
-  
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Эмулируем клик по input
+    }
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+    }
+  };
+
   return (
     <div className="page">
       <Header Header="header" isProfileLink={true} />
-      <div className={classes.rightmenu}>
-        <p className={classes.rightMenuContent}>
-          <span className={classes.rightMenuContentText}>Ваши вопросы</span>
-          <span className={classes.rightMenuContentText}>{QuestionsCount}</span>
-        </p>
-        <p className={classes.rightMenuContent}>
-          <span className={classes.rightMenuContentText}>Ваши ответы</span>
-          <span className={classes.rightMenuContentText}>{AnswersCount}</span>
-        </p>
-      </div>
       <div className={classes.content}>
-        <h2 className={classes.title}>Задай свой вопрос!</h2>
+        <h2 className={classes.title}>Загрузи свой материал!</h2>
         <form onSubmit={tryAsk} className={classes.form}>
+          <label className={classes.imgPenWrapper}>
+            <input
+              type="file"
+              accept="image/*"
+              className={classes.fileInput}
+              onChange={handleAvatarChange}
+              ref={fileInputRef}
+            />
+            <Button currentClass="fileInput" onClick={triggerFileInput}>
+              <img className={classes.ButtonIMG} src={buttonImg} alt="file download"/>
+              <p className={classes.ButtonText}>Загрузить</p>
+            </Button>
+          </label>
+          
           {/* Поле для темы вопроса */}
           <label className={classes.label}>
-            Тема вопроса
+            Название документа
             <textarea
               type="text"
               value={topic}
@@ -91,7 +113,7 @@ function AskQuestion() {
 
           {/* Поле для текста вопроса */}
           <label className={classes.label}>
-            Текст вопроса
+            Описание документа
             <textarea
               value={questionText}
               onChange={(e) => setQuestionText(e.target.value)}
@@ -135,7 +157,7 @@ function AskQuestion() {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default AskQuestion;
+export default DownoloadMaterial;

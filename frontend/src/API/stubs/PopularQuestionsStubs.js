@@ -42,7 +42,7 @@ const PopularQuestionsStubs = [
     author: "Михаил Орлов"
   },
   {
-    id: 8,
+    id: 81231231212,
     title: "Разница между HTTP и HTTPS?",
     description: "Какие основные отличия между HTTP и HTTPS и почему HTTPS безопаснее?",
     author: "Сергей Николаев"

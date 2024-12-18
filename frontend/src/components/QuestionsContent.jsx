@@ -10,7 +10,6 @@ function QuestionsContent() {
   const searchInput = (e) => {setSearchValue(e.target.value)}
   const forSearch = (e) => {
     e.preventDefault();
-    
     window.location.assign('/askQuestion')
   }
   

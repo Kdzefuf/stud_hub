@@ -15,6 +15,7 @@
 }
 
 .formButton {
+  align-self: center;
   background-color: var(--color-White);
 
   font-family: var(--font-familyInter);
@@ -55,24 +56,19 @@
 }
 
 .questionButton {
-  font-family: Inter;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 29.05px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size24px);
+  font-weight: var(--font-weight700);
+  line-height: var(--line-heigth29px);
+  text-align: center;
 
-  padding: 5px 10px;
+  padding: 15px 20px;
   border: none;
-  border-radius: 20px;
-
-  &:nth-child(1) {
-
-  }
+  border-radius: var(--border-radius20px);
 
   &:nth-child(2) {
-    
+    background-color: var(--color-transparent);
+    color: var(--color-White);
   }
 }
 
@@ -88,4 +84,54 @@
   padding: 5px 10px;
   border: none;
   border-radius: 20px;
+
+  white-space: nowrap;
+  min-width: min-content;
+}
+
+.DownloadButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  width: 15vw;
+  height: 20vh;
+
+  background-color: var(--color-CharcoalBlue);
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius40px);
+
+  position: absolute;
+  right: 2vw;
+  top: 24vh;
+}
+
+.fileInput {
+  border-radius: 15px;
+
+  min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  background-color: var(--color-White);
+
+  padding: 10px;
+}
+
+.downloadButton {
+  margin-left: 15px;
+  display: inline-block;
+  background-image: url('../../../images/download.svg');
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
 }
