@@ -5,6 +5,8 @@ const userRoutes = require('./routes/usersRoutes');
 const materialRoutes = require('./routes/materialsRoutes');
 const reviewRoutes = require('./routes/reviewsRoutes');
 const teacherRoutes = require('./routes/teachersRoutes');
+const answersRoutes = require('./routes/answersRoutes');
+const examResourcesRoutes = require('./routes/examResourcesRoutes');
 const userController = require('./controllers/userController');
 const userModel = require('./models/userModel');
 const materialsController = require('./controllers/materialsController');
@@ -27,6 +29,8 @@ app.use('/api', userRoutes);
 app.use('/api', materialRoutes);
 app.use('/api', reviewRoutes);
 app.use('/api', teacherRoutes);
+app.use('/api', answersRoutes);
+app.use('/api', examResourcesRoutes);
 
 app.use(errorHandler);
 

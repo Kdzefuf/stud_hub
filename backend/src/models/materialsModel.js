@@ -111,11 +111,11 @@ exports.addMaterialFile = async (id, materialData) => {
 }
 
 exports.updateMaterial = async (id, materialData) => {
-    const { name, author_id, link, description, views_count, rating, tags, file_type } = materialData;
+    const { name, author_id, description, views_count, rating, tags, file_type, reviews_count, file } = materialData;
   try {
     const result = await pool.query(
-      'UPDATE materials SET name = $2, author_id = $3, link = $4, description = $5, views_count = $6, rating = $7, tags = $8, file_type = $9 WHERE id = $1 RETURNING *',
-      [id, name, author_id, link, description, views_count, rating, tags, file_type]
+      'UPDATE materials SET name = $2, author_id = $3, description = $4, views_count = $5, rating = $6, file_type = $8, reviews_count = $9, tags = $9, file = $10 WHERE id = $1 RETURNING *',
+      [id, name, author_id, description, views_count, rating, file_type, reviews_count, tags, file]
     );
     return result.rows[0];
   } catch (err) {

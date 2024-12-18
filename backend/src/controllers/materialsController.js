@@ -80,8 +80,6 @@ exports.getMaterialsByTag = async (req, res) => {
 
 exports.createMaterial = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log(req.file);
     const material = await materialsModel.createMaterial(req.body, req.file.filename);
     res.status(200).json(material);
   } catch (err) {
