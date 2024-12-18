@@ -28,11 +28,11 @@ exports.findReviewsByMaterial = async (material_id) => {
 }
 
 exports.createReview = async (reviewData) => {
-  const { id, material_id, comment, rating, author_id } = reviewData;
+  const { material_id, comment, author_id } = reviewData;
   try {
     const result = await pool.query(
-      'INSERT INTO reviews (id, material_id, comment, rating, author_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [id, material_id, comment, rating, author_id]
+      'INSERT INTO reviews (id, material_id, comment, author_id) VALUES ($1, $2, $3, $4) RETURNING *',
+      [new Date().getTime(), material_id, comment, author_id]
     );
     return result.rows[0];
   } catch (err) {

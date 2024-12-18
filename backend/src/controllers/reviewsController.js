@@ -5,8 +5,8 @@ exports.getReviews = async (req, res) => {
     const reviews = await reviewsModel.getReviews();
     res.status(200).json(reviews);
   } catch (err) {
-    console.error('Ошибка при обработке запроса на получение пользователей:', err);
-    res.status(500).send('Ошибка сервера, не удалось получить пользователей');
+    console.error('Ошибка при обработке запроса на получение отзывов:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить отзывы');
   }
 };
 
