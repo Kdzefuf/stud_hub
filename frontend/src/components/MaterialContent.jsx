@@ -32,33 +32,12 @@ function MaterialContent({ id }) {
     fetchMaterialData();
   }, [id]);
 
-  const handleDownload = async () => {
-    if (materialData.file) {
-      try {
-        // Получаем файл с сервера
-        const response = await fetch(`http://localhost:3500/uploads/${materialData.file}`);
-        const blob = await response.blob();
-  
-        // Создаём ссылку для скачивания
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob); // Генерируем URL для Blob
-        link.download = `${name}.${materialData.file_type}`; // Устанавливаем новое имя файла
-        link.click(); // Симулируем клик для скачивания
-      } catch (error) {
-        alert('Ошибка при скачивании файла');
-      }
-    } else {
-      alert('Файл не найден');
-    }
-  };
-  
-
   return (
     <div className={classes.container}>
       <div className={classes.content}>
         <img src={images[String(materialData.file_type).toUpperCase()]} alt="Профиль отзыв" className={classes.profile}/>
         <div className={classes.maxSpace}>
-          <h3 className={classes.title}>{materialData.name} <Button currentClass="downloadButton" onClick={handleDownload} /></h3>
+          <h3 className={classes.title}>{materialData.name}</h3>
           <p className={classes.descr}>{materialData.description}</p>
         </div>
         <Rating rating={materialData.rating}/>

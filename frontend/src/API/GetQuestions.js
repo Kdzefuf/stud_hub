@@ -17,13 +17,14 @@ class GetQuestions {
    * const popularQuestions = await GetPopularQuestions.getPopularQuestions();
    */
   static async getQuestions(by="rating") {
+    return PopularQuestionsStubs;
     try {
-      const response = await APIClient.get('/sortedQuestions', { params: { by } });
-      return response.data;
+      // const response = await APIClient.get('/sortedQuestions', { params: { by } });
+      // return response.data;
     }
     catch (e) {
-      console.error(e);
-      // return PopularQuestionsStubs; // Закомментировано для обработки ошибок
+      // console.error(e);
+      return PopularQuestionsStubs; // Закомментировано для обработки ошибок
     }
   }
 }

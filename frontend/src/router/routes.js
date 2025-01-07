@@ -29,42 +29,42 @@ const routes = [
   {
     path: '/questions',
     component: Questions,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/questions/:id', // Параметр id вопроса в URL
     component: QuestionPage,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/materials',
     component: Materials,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/materials/:id', // Параметр id материала в URL
     component: MaterialPage,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/downloadMaterials',
     component: DownloadMaterial,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/examMaterials',
     component: ExamMaterials,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/profile',
     component: PersonalAccount,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: '/askQuestion',
     component: AskQuestion,
-    isProtected: true,
+    isProtected: false,
   }
 ];
 

@@ -31,13 +31,18 @@ import classes from "./Buttons.module.css";
  * @see {@link https://github.com/RedStrikeRF} Автор компонента
  */
 function Button(props) {
+  const { currentClass, children, placeholder, type, onClick, onSubmit } = props;
+  
+  // Обработка нескольких классов
+  const classNames = currentClass ? currentClass.split(' ').map(className => classes[className] || className).join(' ') : '';
+
   return (
     <button 
-      className={classes[props.currentClass]}
-      type={props.type || 'button'}
-      onClick={props.onClick || props.onSubmit}
+      className={classNames}
+      type={type || 'button'}
+      onClick={onClick || onSubmit}
     >
-      {props.children || props.placeholder}
+      {children || placeholder}
     </button>
   );
 }
