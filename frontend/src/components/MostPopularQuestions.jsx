@@ -9,6 +9,7 @@ import img from '../images/profile.svg'
 
 
 function MostPopularQuestions() {
+  const [activeButton, setActiveButton] = useState(null);
   const [questions, setQuestions] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,13 +29,19 @@ function MostPopularQuestions() {
 
   useEffect(() => {
     fetchPopularQuestions();
+    setActiveButton("popular");
   }, []);
+
+  const handleButtonClick = (buttonType, fetchFunction) => {
+    setActiveButton(buttonType);
+    fetchFunction();
+  };
 
   return (
     <div className={classes.MostPopularQuestionsContent}>
       <div className={classes.labelGroup}>
-          <Button type="button" currentClass="questionButton" onClick={fetchPopularQuestions}>Популярные вопросы</Button>
-          <Button type="button" currentClass="questionButton" onClick={fetchLastQuestions} >Последние вопросы</Button>
+          <Button type="button" currentClass={`questionButton ${activeButton === "popular" ? "active" : ""}`} onClick={() => handleButtonClick("popular", fetchPopularQuestions)}>Популярные вопросы</Button>
+          <Button type="button" currentClass={`questionButton ${activeButton === "last" ? "active" : ""}`} onClick={() => handleButtonClick("last", fetchLastQuestions)}>Последние вопросы</Button>
       </div>
       {isLoading ? (
         <Loader />
@@ -51,6 +58,7 @@ function MostPopularQuestions() {
               tags={question.tags}
               currentClass="question"
               avatar={img}
+              answer_count={question.answer_count}
             />
           )}
         </ul>

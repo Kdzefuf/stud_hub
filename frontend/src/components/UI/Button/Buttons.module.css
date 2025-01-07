@@ -65,11 +65,8 @@
   padding: 15px 20px;
   border: none;
   border-radius: var(--border-radius20px);
-
-  &:nth-child(2) {
-    background-color: var(--color-transparent);
-    color: var(--color-White);
-  }
+  background-color: var(--color-transparent);
+  color: var(--color-White);
 }
 
 .saveButton {
@@ -134,4 +131,9 @@
   height: 20px;
   background-color: transparent;
   border: none;
+}
+
+.active {
+  background-color: var(--color-White);
+  color: var(--color-CharcoalBlue);
 }

@@ -1,63 +1,58 @@
 const PopularQuestionsStubs = [
   {
-    id: 1,
-    title: "Как работает замыкание в JavaScript?",
-    description: "Объясните принцип работы замыканий и приведите пример использования.",
-    author: "Иван Петров"
+    id: 1672531200000, // Пример UNIX времени (мс)
+    title: "Как оптимизировать работу с DOM в JavaScript?",
+    description: "Объясните основные способы оптимизации работы с DOM, такие как минимизация перерисовок.",
+    author_name_id: 1,
+    author_name: "Анна Иванова",
+    tags: ["JavaScript", "DOM", "Performance"],
+    currentClass: "question",
+    avatar: "https://example.com/avatar1.png",
+    answer_count: 5
   },
   {
-    id: 2,
-    title: "Что такое REST API?",
-    description: "Какие основные принципы REST и в чем его преимущества?",
-    author: "Мария Смирнова"
+    id: 1672617600000, // Пример UNIX времени (мс)
+    title: "Что такое контекст выполнения в JavaScript?",
+    description: "Расскажите о механизме контекста выполнения и его роли в JavaScript.",
+    author_name_id: 2,
+    author_name: "Петр Сидоров",
+    tags: ["JavaScript", "Execution Context", "Scope"],
+    currentClass: "question",
+    avatar: "https://example.com/avatar2.png",
+    answer_count: 3
   },
   {
-    id: 3,
-    title: "Разница между var, let и const?",
-    description: "Когда лучше использовать var, let или const в JavaScript?",
-    author: "Дмитрий Иванов"
+    id: 1672704000000, // Пример UNIX времени (мс)
+    title: "Как настроить Webpack для React?",
+    description: "Приведите пример минимальной конфигурации Webpack для React-приложения.",
+    author_name_id: 3,
+    author_name: "Екатерина Смирнова",
+    tags: ["Webpack", "React", "Build Tools"],
+    currentClass: "question",
+    avatar: "https://example.com/avatar3.png",
+    answer_count: 8
   },
   {
-    id: 4,
-    title: "Что такое React hooks?",
-    description: "Какие основные хуки есть в React и как они работают?",
-    author: "Алексей Кузнецов"
+    id: 1672790400000, // Пример UNIX времени (мс)
+    title: "Что такое CORS и как с ним работать?",
+    description: "Объясните, зачем нужен CORS и как настроить его для REST API.",
+    author_name_id: 4,
+    author_name: "Алексей Петров",
+    tags: ["REST API", "CORS", "Security"],
+    currentClass: "question",
+    avatar: "https://example.com/avatar4.png",
+    answer_count: 2
   },
   {
-    id: 5,
-    title: "Как работают промисы в JavaScript?",
-    description: "Пример использования промисов и объяснение их основных концепций.",
-    author: "Ольга Соколова"
-  },
-  {
-    id: 6,
-    title: "Как работает асинхронность в Node.js?",
-    description: "Какие модели асинхронности используются в Node.js?",
-    author: "Екатерина Волкова"
-  },
-  {
-    id: 7,
-    title: "Что такое SQL-инъекция?",
-    description: "Объясните, как работают SQL-инъекции и как от них защищаться.",
-    author: "Михаил Орлов"
-  },
-  {
-    id: 81231231212,
-    title: "Разница между HTTP и HTTPS?",
-    description: "Какие основные отличия между HTTP и HTTPS и почему HTTPS безопаснее?",
-    author: "Сергей Николаев"
-  },
-  {
-    id: 9,
-    title: "Что такое Docker и зачем он нужен?",
-    description: "Объясните основную концепцию Docker и его преимущества в разработке.",
-    author: "Наталья Белова"
-  },
-  {
-    id: 10,
-    title: "Как работает WebSocket?",
-    description: "Объясните, как работает протокол WebSocket и в чем его отличия от HTTP.",
-    author: "Илья Котов"
+    id: 1672876800000, // Пример UNIX времени (мс)
+    title: "Как работает виртуальный DOM в React?",
+    description: "Объясните, почему виртуальный DOM улучшает производительность приложений.",
+    author_name_id: 5,
+    author_name: "Мария Кузнецова",
+    tags: ["React", "Virtual DOM", "Performance"],
+    currentClass: "question",
+    avatar: "https://example.com/avatar5.png",
+    answer_count: 4
   }
 ];
 
