@@ -67,6 +67,9 @@
   border-radius: var(--border-radius20px);
   background-color: var(--color-transparent);
   color: var(--color-White);
+
+  box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3) inset;
+
 }
 
 .saveButton {
@@ -134,6 +137,11 @@
 }
 
 .active {
+  background-color: var(--color-White);
+  color: var(--color-CharcoalBlue);
+}
+
+.questionButton.active1 {
   background-color: var(--color-White);
   color: var(--color-CharcoalBlue);
 }

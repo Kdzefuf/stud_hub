@@ -15,7 +15,7 @@ exports.getQuestions = async (limit, offset) => {
 exports.getSortedQuestions = async (attribute) => {
   try {
     const result = await pool.query( 
-      `SELECT questions.id, questions.title, questions.author_id, questions.views_count, questions.tags, users.name AS author_name 
+      `SELECT questions.id, questions.title, questions.author_id, questions.views_count, questions.tags, users.nickname AS author_name 
        FROM questions 
        JOIN users ON questions.author_id = users.id`
     );
@@ -70,6 +70,15 @@ exports.getQuestionsByTag = async (tag) => {
   }
 }
 
+exports.getUserQuestions = async (author_id) => {
+  try {
+    const result = await pool.query('SELECT * FROM questions WHERE author_id = $1', [author_id]);
+    return result.rows;
+  } catch (err) {
+    throw new Error('Error fetching questions by author id: ' + err.message);
+  }
+}
+
 exports.createQuestion = async (questionData) => {
   const { id, title, description, tags, author_id } = questionData;
   try {
@@ -95,6 +104,14 @@ exports.updateQuestion = async (id, questionData) => {
     throw new Error('Error updating question: ' + err.message);
   }
 };
+
+exports.addViewsCount = async (id) => {
+  try {
+    await pool.query('UPDATE questions SET views_count = views_count + 1 WHERE id = $1', [id]);
+  } catch (err) {
+    throw new Error('Error adding views count: ' + err.message);
+  }
+}
 
 exports.deleteQuestion = async (id) => {
   try {

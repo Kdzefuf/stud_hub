@@ -78,6 +78,17 @@ exports.getMaterialsByTag = async (req, res) => {
   }
 }
 
+exports.getUserMaterials = async (req, res) => {
+  const { author_id } = req.params;
+  try {
+    const materials = await materialsModel.getUserMaterials(author_id);
+    res.status(200).json(materials);
+  } catch (err) {
+    console.error('Ошибка при обработке запроса на получение материалов пользователя:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить материалы');
+  }
+}
+
 exports.createMaterial = async (req, res) => {
   try {
     const material = await materialsModel.createMaterial(req.body, req.file.filename);
@@ -96,6 +107,16 @@ exports.updateMaterial = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.addViewsCount = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedMaterial = await materialsModel.addViewsCount(id);
+    res.status(200).json(updatedMaterial);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 exports.deleteMaterial = async (req, res) => {
   const { id } = req.params;

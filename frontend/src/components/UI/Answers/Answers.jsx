@@ -4,35 +4,58 @@ import Answer from "../Answer/Answer"; // Импортируем компоне�
 import classes from './Answers.module.css';
 
 function Answers({ id }) {
+  const [answerCount, setAnswerCount] = useState(0);
   const [answers, setAnswers] = useState([]); // Состояние для хранения списка ответов
 
   useEffect(() => {
     const fetchAnswers = async () => {
-      const data = await GetAnswers.getAnswersForQuestion(id); // Используем API для получения ответов по questionId
-      setAnswers(data);
-    };
+      const response = await GetAnswers.getAnswers(id);
+      setAnswers(response);
+      setAnswerCount(response.length)
+    }
+    fetchAnswers()
+  }, [id])
 
-    fetchAnswers();
-  }, [id]); // Зависимость от id, чтобы при изменении id, данные обновлялись
-
+  function getAnswerWord(count) {
+    const remainder10 = count % 10;
+    const remainder100 = count % 100;
+  
+    if (remainder100 >= 11 && remainder100 <= 19) {
+      return 'ответов';
+    }
+  
+    if (remainder10 === 1) {
+      return 'ответ';
+    }
+  
+    if (remainder10 >= 2 && remainder10 <= 4) {
+      return 'ответа';
+    }
+  
+    return 'ответов';
+  }
+  
   return (
     <ul style={{ 
       width: '100%', 
       display: 'flex', 
       flexDirection: 'column', 
       gap: '30px', 
-      flexWrap: 'nowrap',
-      backgroundColor: 'white'
+      flexWrap: 'nowrap' 
     }}>
+      <h1 className={classes.title}>
+        {answerCount} {getAnswerWord(answerCount)}
+      </h1>
       {answers.length > 0 ? (
+        
         answers.map((answer) => {
-          return <Answer key={answer.id} answer={answer} />; // Передаем каждый ответ в компонент Answer
+          return <Answer answer={answer} />;
         })
       ) : (
         <p>Ответов пока нет.</p>
       )}
     </ul>
-  );
+  )
 }
 
 export default Answers;

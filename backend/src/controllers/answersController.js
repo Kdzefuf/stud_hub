@@ -44,7 +44,7 @@ exports.getAnswerById = async (req, res) => {
 
 exports.createAnswer = async (req, res) => {
   try {
-    const answers = await answersModel.createAnswer(req.body);
+    const answers = await answersModel.createAnswer(req.body, req.body.file || req.file.filename);
     res.status(200).json(answers);
   } catch (err) {
     res.status(500).json({ error: err.message });

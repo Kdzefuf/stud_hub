@@ -63,6 +63,17 @@ exports.getQuestionsByTag = async (req, res) => {
   }
 }
 
+exports.getUserQuestions = async (req, res) => {
+  const { author_id } = req.params;
+  try {
+    const questions = await questionsModel.getUserQuestions(author_id);
+    res.status(200).json(questions);
+  } catch (err) {
+    console.error('Ошибка при обработке запроса на получение вопросов пользователя:', err);
+    res.status(500).send('Ошибка сервера, не удалось получить вопросы');
+  }
+}
+
 exports.createQuestion = async (req, res) => {
   try {
     const question = await questionsModel.createQuestion(req.body);
@@ -81,6 +92,16 @@ exports.updateQuestion = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.addViewsCount = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedQuestion = await questionsModel.addViewsCount(id);
+    res.status(200).json(updatedQuestion);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 exports.deleteQuestion = async (req, res) => {
   const { id } = req.params;

@@ -17,34 +17,24 @@ class GetAnswers {
    * @example
    * const answer = await GetAnswers.getAnswer('456');
    */
-  static async getAnswer(id) {
+
+  static async getAnswerInfo(question_id) {
     try {
-      const response = await APIClient.get(`/answers/${id}`);
+      const response = await APIClient.get(`/questions/${question_id}`, {params: {question_id}});
+      
       return response.data;
     } catch (e) {
       console.error(e);
-      return AnswerStubs[0]; // Закомментировано для обработки ошибок
     }
   }
 
-  /**
-   * Получает список ответов для конкретного вопроса.
-   * @function
-   * @async
-   * @static
-   * @param {string} questionId - Идентификатор вопроса, для которого нужно получить ответы.
-   * @returns {Promise<Array>} Массив объектов с данными ответов.
-   * @throws {Error} В случае ошибки выводит сообщение в консоль.
-   * @example
-   * const answers = await GetAnswers.getAnswersForQuestion('123');
-   */
-  static async getAnswersForQuestion(questionId) {
+  static async getAnswers(question_id) {
     try {
-      const response = await APIClient.get(`/questions/${questionId}/answers`);
+      const response = await APIClient.get(`/answers/${question_id}`, {params: {question_id}});
+      
       return response.data;
     } catch (e) {
       console.error(e);
-      return AnswerStubs; // Закомментировано для обработки ошибок
     }
   }
 }

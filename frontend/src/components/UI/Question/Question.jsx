@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from './Question.module.css'
 import GetUserInfo from "../../../API/GetUserInfo";
-
+import PutViews from "../../../API/PutViews"
 function Question(props) {
   const [date, setDate] = useState('');
   const [author, setAuthor] = useState('');
@@ -16,8 +16,9 @@ function Question(props) {
     console.log(props.tags)
   }, []);
 
-  const currentQuestionPage = () => {
-    window.location.assign(`/questions/${props.id}`);
+  const currentQuestionPage = async () => {
+    await PutViews.addViewToQuestion(props.id);
+    window.location.assign(`/questions/${props.id}/${props.author_id}`);
   }
 
   return (
@@ -31,7 +32,7 @@ function Question(props) {
             return (<span>{tag}, </span>)
           })}</span>
           <span> {date}, </span>
-          <span> Ответов: {props.answer_count}</span>
+          <span> Просмотров: {props.answer_count}</span>
         </p>
       </div>
     </li>

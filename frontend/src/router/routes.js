@@ -32,7 +32,7 @@ const routes = [
     isProtected: false,
   },
   {
-    path: '/questions/:id', // Параметр id вопроса в URL
+    path: '/questions/:id/:author_id', // Параметр id вопроса в URL
     component: QuestionPage,
     isProtected: false,
   },

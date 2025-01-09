@@ -21,6 +21,8 @@ router.get('/popularMaterials', materialsController.getPopularMaterials);
 router.get('/materials/:id', materialsController.getMaterialById);
 router.get('/searchMaterials', materialsController.searchMaterials);
 router.get('/materials', materialsController.getMaterialsByTag);
+router.get('/my_materials/:author_id', materialsController.getUserMaterials);
+router.put('views/:id', materialsController.addViewsCount);
 router.put('/materials/:id', materialsController.updateMaterial);
 router.delete('/materials/:id', materialsController.deleteMaterial);
 

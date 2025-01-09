@@ -84,6 +84,15 @@ exports.getMaterialsByTag = async (tag) => {
   }
 }
 
+exports.getUserMaterials = async (author_id) => {
+  try {
+    const result = await pool.query('SELECT * FROM materials WHERE author_id = $1', [author_id]);
+    return result.rows;
+  } catch (err) {
+    throw new Error('Error fetching materials by author id: ' + err.message);
+  }
+}
+
 exports.createMaterial = async (materialData, file) => {
   const { name, author_id, description, tags, file_type } = materialData;
   try {
@@ -122,6 +131,14 @@ exports.updateMaterial = async (id, materialData) => {
     throw new Error('Error updating material: ' + err.message);
   }
 };
+
+exports.addViewsCount = async (id) => {
+  try {
+    await pool.query('UPDATE materials SET views_count = views_count + 1 WHERE id = $1', [id]);
+  } catch (err) {
+    throw new Error('Error adding views count: ' + err.message);
+  }
+}
 
 exports.deleteMaterial = async (id) => {
   try {

@@ -27,12 +27,12 @@ exports.findAnswersByQuestion = async (question_id) => {
     }
 }
 
-exports.createAnswer = async (answerData) => {
+exports.createAnswer = async (answerData, file) => {
   const { question_id, description, author_id } = answerData;
   try {
     const result = await pool.query(
-      'INSERT INTO answers (id, question_id, description, author_id) VALUES ($1, $2, $3, $4) RETURNING *',
-      [new Date().getTime(), question_id, description, author_id]
+      'INSERT INTO answers (id, question_id, description, author_id, file) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [new Date().getTime(), question_id, description, author_id, file]
     );
     return result.rows[0];
   } catch (err) {
@@ -40,12 +40,25 @@ exports.createAnswer = async (answerData) => {
   }
 };
 
+exports.addAnswerFile = async (id, answerData) => {
+  const { file } = answerData;
+  try {
+    await pool.query(
+      'UPDATE answers SET file = $2 WHERE id = $1 RETURNING *',
+      [id, file]
+    );
+    return result.rows[0];
+  } catch (err) {
+    throw new Error('Error adding answer file: ' + err.message);
+  }
+}
+
 exports.updateAnswer = async (id, answerData) => {
-    const { question_id, description, rating, author_id } = answerData;
+    const { question_id, description, author_id } = answerData;
   try {
     const result = await pool.query(
-      'UPDATE answers SET question_id = $2, description = $3, rating = $4, author_id = $5 WHERE id = $1 RETURNING *',
-      [id, question_id, description, rating, author_id]
+      'UPDATE answers SET question_id = $2, description = $3, author_id = $4 WHERE id = $1 RETURNING *',
+      [id, question_id, description, author_id]
     );
     return result.rows[0];
   } catch (err) {

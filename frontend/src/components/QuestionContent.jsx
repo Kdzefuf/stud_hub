@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import GetAnswers from "../API/GetAnswers"; // Получаем API для работы с ответами
-import images from './UI/Images/images.js'; // Место для хранения изображений
 import classes from '../styles/QuestionContent.module.css'; // Стили для страницы ответа
 import Rating from './UI/Rating/Rating.jsx'; // Компонент для отображения рейтинга
 import Button from './UI/Button/Button.jsx'; // Кнопка для дополнительных действий
+import Answers from './UI/Answers/Answers.jsx';
+import GetUserInfo from "../API/GetUserInfo";
+import profile from '../images/profile.svg';
+import Form from "./UI/Form/Form.jsx";
+import PostAnswer from "../API/PostAnswer.js"; // Подключаем API для отправки ответа
 
-function QuestionContent({ id }) {
-  const [activeButton, setActiveButton] = useState(null);
-  const [answerData, setAnswerData] = useState({});
+function QuestionContent({ id, author_id }) {
+  const [avatar, setAvatar] = useState('');
+  const [answersData, setAnswersData] = useState({});
   const [date, setDate] = useState('');
   const [authorName, setAuthorName] = useState('Неизвестный');
-  const [isAnswered, setIsAnswered] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(null);
+  const [showForm, setShowForm] = useState(false);
   id = Number(id);
 
   // Форматируем Unix-время в удобный формат
@@ -22,51 +27,82 @@ function QuestionContent({ id }) {
     setDate(`${day}.${month}.${year}`);
   }
 
-  // Загружаем данные о ответе
+  //Загружаем данные о ответе
   useEffect(() => {
     formatUnixToDate(id); // Форматируем дату ответа
     const fetchAnswerData = async () => {
-      const data = await GetAnswers.getAnswer(id); // Получаем ответ по ID
-      setAnswerData(data); // Сохраняем данные ответа
-      setAuthorName(data.author_name); // Устанавливаем имя автора
-      setIsAnswered(!!data.text); // Если есть текст ответа, то ставим флаг isAnswered
+      const data = await GetAnswers.getAnswerInfo(id); // Получаем ответ по ID
+      setAnswersData(data); // Сохраняем данные ответа
+      setIsAnswer(true);
     };
 
-    setActiveButton('answers');
+    const fetchUserInfo = async () => {
+      try {
+        const data = await GetUserInfo.getUserInfo(author_id); // Получаем информацию об авторе
+        if (data) {
+          setAuthorName(data.nickname);
+          setAvatar(data.photo !== null ? `http://localhost:3500/uploads/${data.photo}` : profile);
+        }
+      } catch (error) {
+        console.error('Ошибка при получении данных пользователя:', error);
+      }
+    };
+
+    fetchUserInfo();
     fetchAnswerData();
   }, [id]);
 
   // Обработчик для кнопки "Оставить отзыв"
   const handleLeaveReview = () => {
-    alert('Функция оставления отзыва не реализована.');
+    setShowForm(true); // Показываем форму
   };
 
-  // Обработчик для кнопки "Отзыв"
-  const handleViewReview = () => {
-    alert('Просмотр отзыва.');
+  // Обработчик для закрытия формы
+  const handleCloseForm = () => {
+    setShowForm(false); // Закрываем форму
   };
 
-  const handleButtonClick = (buttonType, fetchFunction) => {
-    setActiveButton(buttonType);
-    fetchFunction();
+  // Обработчик отправки данных формы
+  const handleSubmitForm = async (formData) => {
+    try {
+      // Добавляем в formData необходимые данные
+      formData.append('author_id', JSON.parse(localStorage.getItem("userData")));
+      formData.append('question_id', id); // Используем id из пропсов
+
+      const response = await PostAnswer.submitAnswer(formData); // Отправляем данные на сервер
+      alert('Ответ успешно отправлен:', response);
+      setShowForm(false); // Закрываем форму после отправки
+    } catch (error) {
+      console.error('Ошибка при отправке ответа:', error);
+    }
   };
-  
+
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        <img src={images[String(answerData.author_avatar)]} alt="Профиль автора" className={classes.profile} />
-        <div className={classes.maxSpace}>
-          <h3 className={classes.title}>Ответ от {authorName}</h3>
-          <p className={classes.answerText}>{answerData.text || "Ответ ещё не дан."}</p>
+        <div className={classes.add}>
+          <img src={avatar} alt="Профиль автора" className={classes.profile} />
+          <div className={classes.maxSpace}>
+            <h3 className={classes.title}>
+              <span>{authorName}, {date}</span><br />
+              {answersData.title}
+            </h3>
+            <p className={classes.descr}>{answersData.description || "Ответ ещё не дан."}</p>
+          </div>
         </div>
-        <Rating rating={answerData.rating} />
-        <p className={classes.date}>{date}, просмотров: {answerData.views_count}</p>
+        <div className={classes.addons}>
+          <Button type="button" currentClass={`questionButton active1`} onClick={handleLeaveReview}>Дать ответ</Button>
+        </div>
       </div>
-      <div className={classes.buttons}>
-        <Button type="button" currentClass={`questionButton ${activeButton === "answers" ? "active" : ""}`} onClick={() => handleButtonClick("answers", handleViewReview)}>Ответы</Button>
-        <Button type="button" currentClass={`questionButton ${activeButton === "makeAnswer" ? "active" : ""}`} onClick={() => handleButtonClick("makeAnswer", handleLeaveReview)}>Дать ответ</Button>
-      </div>
-      
+
+      {isAnswer ? (
+        <Answers id={answersData.id} />
+      ) : (
+        <p>Пока что не придумано</p>
+      )}
+
+      {/* Показываем форму для ответа */}
+      {showForm && <Form onSubmit={handleSubmitForm} onClose={handleCloseForm} />}
     </div>
   );
 }

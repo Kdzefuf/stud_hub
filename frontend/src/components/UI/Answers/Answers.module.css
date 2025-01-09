@@ -1,0 +1,9 @@
+.title {
+  width: 100%;
+  font-family: var(--font-familyInter);
+  font-size: var(--font-size36px);
+  font-weight: var(--font-weight700);
+  line-height: var(--line-heigth43px);
+  text-align: center;
+  color: var(--color-White);
+}

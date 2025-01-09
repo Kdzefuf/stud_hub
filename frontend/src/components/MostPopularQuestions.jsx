@@ -58,7 +58,7 @@ function MostPopularQuestions() {
               tags={question.tags}
               currentClass="question"
               avatar={img}
-              answer_count={question.answer_count}
+              answer_count={question.views_count}
             />
           )}
         </ul>
